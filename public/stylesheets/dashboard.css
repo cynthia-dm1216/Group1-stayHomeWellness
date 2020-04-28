@@ -1,0 +1,49 @@
+.body {
+    margin: 0;
+    padding: 0;
+}
+
+.hero-body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    height: 250px;
+    background-image: linear-gradient(to bottom, #82d4f2 , white);
+}
+
+.mainHeader {
+    margin-left: 30px;
+}
+.signup {
+    background-color: #82d4f2;
+}
+
+.tiles {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.tile1 {
+    background-color: #43CAFE;
+}
+
+.tile3 {
+    background-color: #82d4f2;
+}
+
+.tile4 {
+    background-color: #04a1da;
+}
+
+.tile5 {
+    background-color: #04a1da;
+}
+
+.ingredients {
+    margin-top: 10px;
+}
+
+.getRecipes {
+    align-items: flex-end;
+}
