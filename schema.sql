@@ -4,6 +4,27 @@ DROP DATABASE IF EXISTS users;
 CREATE DATABASE users;
 
 -- WHATS GOING IN HERE --
+CREATE TABLE workouts (
+    -- id INT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(250),
+    duration INT (200),
+    reps INT (40),
+    sets INT (10),
+);
+
+-- Insert set of records
+INSERT INTO workouts (category,duration,reps,sets)
+VALUES ("Chest",45,16,4);
+
+INSERT INTO workouts (category,duration,reps,sets)
+VALUES ("arms",35,16,4);
+
+INSERT INTO workouts (category,duration,reps,sets)
+VALUES ("Lower Body",45,16,4);
+
+INSERT INTO workouts (category,duration,reps,sets)
+VALUES ("Back",20,16,4);
+
 
 -- this database will hold recipes the user chooses from 
 -- the database provided by edamam api
