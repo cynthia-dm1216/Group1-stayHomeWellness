@@ -1,5 +1,8 @@
 // Requiring bcrypt for password hashing. Using the bcryptjs version as the regular bcrypt module sometimes causes errors on Windows machines
 var bcrypt = require("bcryptjs");
+var Recipes = require("./recipes");
+var FoodPref = require("./foodpref");
+
 // Creating our User model
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
@@ -31,5 +34,18 @@ module.exports = function(sequelize, DataTypes) {
       null
     );
   });
+  // OK. Now things get more complicated (not really visible to the user :)).
+  // First let's define a hasMany association
+
+  User.associate = function(models) {
+    // Associating Author with Posts
+    // When an Author is deleted, also delete any associated Posts
+    User.hasMany(models.Recipes, {
+      onDelete: "cascade"
+    });
+    User.hasMany(models.FoodPref, {
+      onDelete: "cascade"
+    });
+  };
   return User;
 };

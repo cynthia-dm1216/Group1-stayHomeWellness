@@ -1,11 +1,12 @@
 {
+
   "development": {
     "use_env_variable": "LOCALDB_URL"
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "mysqlpassword",
+    "database": "users",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
