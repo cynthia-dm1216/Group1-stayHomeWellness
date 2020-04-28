@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+var edamam = require("./edamam")
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -24,6 +25,10 @@ module.exports = function(app) {
       .catch(function(err) {
         res.status(401).json(err);
       });
+  });
+
+  app.get("/api/edamam/examplerecipe", function(req, res) {
+    res.json(edamam);
   });
 
   // Route for logging user out
