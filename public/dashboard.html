@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stay Well</title>
+    <!-- Bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Stylesheet -->
+    <link href="stylesheets/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+    <section class="section" style="padding: 0;">
+        <!-- Hero Block -->
+        <section class="hero">
+            <div class="hero-body">
+                <div class="container title mainHeader">
+                    <h1>
+                        Stay at Home
+                    </h1>
+                    <h2 class="subtitle">
+                        & Stay Well
+                    </h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nav Bar -->
+        <nav class="navbar" role="navigation" aria-label="main navigation" style="margin-left: 10px;">
+            <div class="navbar-brand">
+
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item">
+                        Home
+                    </a>
+
+                    <a class="navbar-item">
+                        Workouts
+                    </a>
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            More
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">
+                                Resources
+                            </a>
+                            <a class="navbar-item">
+                                Recipes
+                            </a>
+                            <a class="navbar-item">
+                                About
+                            </a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item">
+                                Report an issue
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button signup">
+                                Sign up
+                            </a>
+                            <a class="button is-light">
+                                Log in
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- tiles section -->
+        <div class="tiles">
+            <div class="tile is-ancestor">
+                <div class="tile is-vertical is-8">
+                    <div class="tile">
+                        <!-- Whats Cooking Tile -->
+                        <div class="tile is-parent is-vertical">
+                            <article class="tile is-child notification tile1">
+                                <p class="title">What's Cooking?</p>
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input is-info" type="text" placeholder="Enter Ingredient">
+                                    </div>
+                                    <div class="box ingredients">
+                                        <article class="media">
+                                            <div class="media-content">
+                                                <div class="content">
+                                                    <p>
+                                                        <strong>Ingredients</strong>
+                                                        <ul>
+                                                            <li>
+                                                                <div class="block">
+                                                                    <span class="tag is-info">
+                                                                        Example ingredient
+                                                                        <button class="delete is-small"></button>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="block">
+                                                                    <span class="tag is-info">
+                                                                        Example ingredient
+                                                                        <button class="delete is-small"></button>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="block">
+                                                                    <span class="tag is-info">
+                                                                        Example ingredient
+                                                                        <button class="delete is-small"></button>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </p>
+                                        </article>
+                                    </div>
+                                    <!-- Find recipes button -->
+                                    <button class="button is-info getRecipes">Find Recipes</button>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Recipes Tile -->
+                        <div class="tile is-parent">
+                            <article class="tile is-child notification tile3">
+                                <p class="title">Recipes</p>
+                                <div class="box ingredients">
+                                    <article class="media">
+                                        <div class="media-content">
+                                            <div class="content">
+                                                <!-- recipes go here -->
+                                                <strong> <a>Soup</a> </strong>
+                                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                                                <strong> <a>Salad</a> </strong>
+                                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                                                <strong> <a>Brownies</a> </strong>
+                                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+
+                                    </article>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Extra Tile at bottom -->
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification tile4">
+                            <p class="title">Extra Tile</p>
+                            <p class="subtitle">Aligned with the right tile</p>
+                            <div class="content">
+                                <!-- Content -->
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Workouts Tile -->
+                <div class="tile is-parent">
+                    <article class="tile is-child notification tile5">
+                        <div class="content">
+                            <p class="title">Workouts</p>
+                            <p class="subtitle">You can do from home</p>
+                            <div class="content">
+                                <!-- Content -->
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- javascript for bulma burger button -->
+    <script>
+        $(document).ready(function () {
+
+            // Check for click events on the navbar burger icon
+            $(".navbar-burger").click(function () {
+
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                $(".navbar-burger").toggleClass("is-active");
+                $(".navbar-menu").toggleClass("is-active");
+
+            });
+        });
+    </script>
+</body>
+
+</html>
