@@ -8,16 +8,42 @@
 </head>
 <body>
     <p>hello world</p>
+    
+    <form>
+        <label for="userFood">Food:</label><br>
+        <input id="userFood" type="text" id="fname" name="userFood"><br>
+        <label for="userDiet">Diet:</label><br>
+        <input id="userDiet" type="text" id="lname" name="userDiet"><br>
+        <label for="userHealth">Health:</label><br>
+        <input id="userHealth" type="text" id="fname" name="userHealth"><br>
+        <label for="userMealType">Meal Type:</label><br>
+        <input id="userMealType" type="text" id="lname" name="userMealType"><br>
+        <label for="userExclude">Exclude:</label><br>
+        <input id="userExclude" type="text" id="lname" name="userExclude">
+        <button id="btn1">Search Recipes</button>
+      </form>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 <script>
-    
-    $(document).ready(function() {
-        var queryURL = "https://api.edamam.com/search?q=beets&diet=low-carb&health=vegetarian&meal-type=lunch&excluded=onions&app_id=f876d2ab&app_key=f3704087ed21caa6260f24b22b7b655f";
-      
+document.getElementById("btn1").onclick = function(event) {
+    event.preventDefault();
+    recipeSearch()};
+
+function recipeSearch() {
+
+        var userFood = document.getElementById("userFood").value;
+        var userHealth = document.getElementById("userHealth").value;
+        var userDiet = document.getElementById("userDiet").value;
+        var userMealType = document.getElementById("userMealType").value;
+        var userExclude = document.getElementById("userExclude").value;
+
+        //var queryURL = "https://api.edamam.com/search?q=beets&diet=low-carb&health=vegetarian&meal-type=lunch&excluded=onions&app_id=f876d2ab&app_key=f3704087ed21caa6260f24b22b7b655f";
+        var queryURL = "https://api.edamam.com/search?q=" + userFood + "&diet=" + userDiet + "&health=" + userHealth + "&meal-type=" + userMealType + "&excluded=" + userExclude + "&app_id=f876d2ab&app_key=f3704087ed21caa6260f24b22b7b655f";
+        
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -35,8 +61,11 @@ $("body").append(newSpace);
 
 
 });
-})
+}
 
+  
+
+    
 
     
     
