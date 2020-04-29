@@ -49,7 +49,7 @@ module.exports = function (app) {
 
   //Route for saving a selected recipe
   app.post("/api/recipes", function (req, res) {
-    db.Recipe.create({
+    db.Recipes.create({
       //spread keys/values from recipe object
       ...req.body,
       userId: req.user.id
@@ -64,7 +64,7 @@ module.exports = function (app) {
 
   //Route to display selected recipes
   app.get("/api/recipes/selected", function(req, res) {
-    db.Recipe.findAll({
+    db.Recipes.findAll({
       where: {
         userId: req.user.id
       }
