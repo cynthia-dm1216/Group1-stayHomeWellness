@@ -1,3 +1,13 @@
+
+//Search flow
+    //User inputs ingredients
+    //Call to api with ingredients in query
+    //Will get object
+    //Return res.data.hits.?
+
+
+
+
 $(document).ready(function () {
 
     //create a click handler on the /is-small class that 
@@ -23,3 +33,5 @@ function getAllRecipes() {
         $(".recipe-title").append(data);
     });
 }
+
+
