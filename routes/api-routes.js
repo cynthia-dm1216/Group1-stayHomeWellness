@@ -46,4 +46,8 @@ module.exports = function(app) {
       });
     }
   });
+
+  app.get("/api/workout", function(req,res) {
+    console.log(req.body);
+  })
 };
