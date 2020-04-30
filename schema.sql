@@ -14,7 +14,7 @@ CREATE TABLE workouts (
 
 -- Insert set of records
 INSERT INTO workouts (category,duration,reps,sets)
-VALUES ("Chest",45,16,4);
+VALUES ("Chest",45,12,4);
 
 INSERT INTO workouts (category,duration,reps,sets)
 VALUES ("arms",35,16,4);
