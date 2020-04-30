@@ -20,9 +20,19 @@ $(document).ready(function () {
   workoutsId = url.split("=")[1];
   getWorkouts(workoutsId);
  }
- 
- 
- // getting workouts from the database and updates the view
- 
+ else{
+   getWorkouts();
+ }
 
+ // getting workouts from the database and updates the view
+//  function getWorkouts(workout) {
+//    workoutsId = workout || "";
+//    if(workoutsId) {
+//      workoutsId = "/?workouts_id=" + workoutsId;
+//    }
+//    $.get("/api/newWorkouts" + workoutsId, function(data){
+//      console.log("newWorkouts",data);
+//      newWorkouts = data;
+//    })
+//  }
 })
