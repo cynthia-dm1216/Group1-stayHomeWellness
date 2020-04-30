@@ -50,6 +50,9 @@ module.exports = function(app) {
     }
   });
 
+  app.get("/api/workout", function(req,res) {
+    console.log(req.body);
+  })
   //Route for saving a selected recipe
   app.post("/api/recipes", isAuthenticated, function(req, res) {
     db.Recipes.create({
