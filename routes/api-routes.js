@@ -87,14 +87,13 @@ module.exports = function(app) {
     // var queryUrl = `https://api.edamam.com/search?q=beets&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`;
     var queryUrl = recipeSearchQuery(ingredient);
 
-    console.log(ingredient);
-    console.log(queryUrl);
+    // console.log(ingredient);
+    // console.log(queryUrl);
     // res.send(ingredient + "<br>" + queryUrl);
 
     axios
       .get(queryUrl)
       .then(function(result) {
-        console.log(result);
         res.send(result.data.hits);
       })
       .catch(function(err) {
@@ -160,17 +159,27 @@ function RecipeSearchData(
  * @param {Object} searchData Object containing search parameters
  */
 function recipeSearchQuery(searchData) {
-  const {
-    searchFood,
-    recipeURI,
-    healthSpec,
-    dietSpec,
-    cuisineType,
-    dishType,
-    mealType,
-    excludeFood,
-    inSpanish
-  } = searchData;
+  // const {
+  //   searchFood,
+  //   recipeURI,
+  //   healthSpec,
+  //   dietSpec,
+  //   cuisineType,
+  //   dishType,
+  //   mealType,
+  //   excludeFood,
+  //   inSpanish
+  // } = searchData;
+
+  var searchFood = searchData.searchFood;
+  var recipeURI = searchData.recipeURI;
+  var healthSpec = searchData.healthSpec;
+  var dietSpec = searchData.dietSpec;
+  var cuisineType = searchData.cuisineType;
+  var dishType = searchData.dishType;
+  var mealType = searchData.mealType;
+  var excludeFood = searchData.excludeFood;
+  var inSpanish = searchData.inSpanish;
 
   var queryURL = "https://";
 
