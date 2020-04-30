@@ -44,13 +44,31 @@
     background-color: #04a1da;
 }
 
+.field {
+    display: flex;
+}
+
+.ingred-tile {
+    display: block;
+}
+
+.control {
+    width: 100%;
+}
+
 .ingredients {
     margin-top: 10px;
     padding: 2px 5px 10px 5px;
+    width: 100%;
 }
 
 .content {
-    min-height: 100px;
+    min-height: 125px;
+}
+
+.prefs {
+    display: block;
+    margin-left: 20px;
 }
 
 .getRecipes {

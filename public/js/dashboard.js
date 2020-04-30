@@ -2,7 +2,7 @@ var _ENTER_KEYCODE = 13;
 var _TAB_KEYCODE = 9;
 
 var _ingredientCount = -1;
-
+//please update me
 // $(document).ready(function() {});
 
 //  Key-down event for Ingredient Input Box
@@ -47,6 +47,7 @@ $(".getRecipes").on("click", function() {
   }
 
   var queryString = "/api/recipes/" + ingredientArray.join("%2C");
+  console.log(queryString);
 
   $.ajax({
     method: "GET",

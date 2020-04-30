@@ -94,15 +94,28 @@
         <div class="tiles">
             <div class="tile is-ancestor">
                 <div class="tile is-vertical is-8">
-                    <div class="tile">
+                    <!-- <div class="tile"> -->
                         <!-- Whats Cooking Tile -->
-                        <div class="tile is-parent is-vertical">
+                        <!-- <div class="tile is-parent is-vertical">
                             <article class="tile is-child notification tile1">
                                 <p class="title">What's Cooking?</p>
                                 <div class="field">
                                     <div class="control">
                                         <input class="input is-info" id="ingredient-input" type="text"
                                             placeholder="Enter Ingredient">
+                                    </div>
+                                    <div class="box ingredients">
+                                        <article class="media">
+                                            <div class="media-content">
+                                                <div class="content"> -->
+                    <!-- Whats Cooking Tile -->
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification tile1">
+                            <p class="title">What's Cooking?</p>
+                            <div class="field">
+                                <div class="tile is-vertical ingred-tile">
+                                    <div class="control">
+                                        <input class="input is-info" id="ingredient-input" type="text" placeholder="Enter Ingredient">
                                     </div>
                                     <div class="box ingredients">
                                         <article class="media">
@@ -115,15 +128,30 @@
                                             </div>
                                         </article>
                                     </div>
+                                </div>
+                                <div class="tile is-4 prefs" style="display: block">
+                                    <label for="userDiet">Diet:</label><br>
+                                    <input id="userDiet" type="text" name="userDiet" style="width: 100%;" disabled placeholder="soon to come"><br>
+                                    <label for="userHealth">Health:</label><br>
+                                    <input id="userHealth" type="text" name="userHealth" style="width: 100%;" disabled placeholder="soon to come"><br>
+                                    <label for="userMealType">Meal Type:</label><br>
+                                    <input id="userMealType" type="text" name="userMealType" style="width: 100%;" disabled placeholder="soon to come"><br>
+                                    <label for="userExclude">Exclude:</label><br>
+                                    <input id="userExclude" type="text" name="userExclude" style="width: 100%;" disabled placeholder="soon to come">
+                                </div>
+                                <!-- <div class="tile" style="align-self: flex-end; margin: 10px 20px; max-width: 100px;"> -->
+                                <div class="tile is-child">
                                     <!-- Find recipes button -->
                                     <button class="button is-info getRecipes">Find Recipes</button>
                                 </div>
-                            </article>
-                        </div>
+                            </div>
+                        </article>
+                    </div>
 
+                    <div class="tile">
                         <!-- Recipes Tile -->
                         <div class="tile is-parent">
-                            <article class="tile is-child notification tile3">
+                            <article class="tile is-child notification tile3 is-vertical">
                                 <p class="title">Suggested Recipes</p>
                                 <p class="subtitle">Click title to see full recipe</p>
                                 <div class="box ingredients">
@@ -145,23 +173,25 @@
                                                 </div> -->
                                             </div>
                                     </article>
+                                </div>          
+                            </article>
+                        </div>
+
+                        <!-- Extra Tile at bottom -->
+                        <div class="tile is-parent">
+                            <article class="tile is-child notification tile4">
+                                <p class="title">Saved Recipes</p>
+                                <p class="subtitle"></p>
+                                <div class="recipe-title" id="saved-recipes">
+                                    <!-- Content -->
+                                    <!-- <strong> <a href="" target="_blank" id="id1">Soup</a> </strong>
+                                    <strong> <a href="" target="_blank" id="id3">Casserole</a> </strong> -->
                                 </div>
                             </article>
                         </div>
                     </div>
 
-                    <!-- Extra Tile at bottom -->
-                    <div class="tile is-parent">
-                        <article class="tile is-child notification tile4">
-                            <p class="title">Saved Recipes</p>
-                            <p class="subtitle"></p>
-                            <div class="recipe-title" id="saved-recipes">
-                                <!-- Content -->
-                                <!-- <strong> <a href="" target="_blank" id="id1">Soup</a> </strong>
-                                <strong> <a href="" target="_blank" id="id3">Casserole</a> </strong> -->
-                            </div>
-                        </article>
-                    </div>
+                    
                 </div>
 
                 <!-- Workouts Tile -->
