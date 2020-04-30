@@ -46,4 +46,30 @@ module.exports = function(app) {
       });
     }
   });
+
+  //Route for saving a selected recipe
+  app.post("/api/recipes", function(req, res) {
+    db.Recipes.create({
+      //spread keys/values from recipe object
+      body: req.body,
+      userId: req.user.id
+    })
+      .then(function(result) {
+        res.json(result);
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
+  });
+
+  //Route to display selected recipes
+  app.get("/api/recipes/selected", function(req, res) {
+    db.Recipes.findAll({
+      where: {
+        userId: req.user.id
+      }
+    }).then(function(result) {
+      res.json(result);
+    });
+  });
 };
