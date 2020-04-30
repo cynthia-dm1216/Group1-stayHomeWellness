@@ -1,6 +1,9 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+var axios = require("axios");
+require("dotenv").config();
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -48,7 +51,7 @@ module.exports = function(app) {
   });
 
   //Route for saving a selected recipe
-  app.post("/api/recipes", function(req, res) {
+  app.post("/api/recipes", isAuthenticated, function(req, res) {
     db.Recipes.create({
       //spread keys/values from recipe object
       body: req.body,
@@ -63,7 +66,7 @@ module.exports = function(app) {
   });
 
   //Route to display selected recipes
-  app.get("/api/recipes/selected", function(req, res) {
+  app.get("/api/recipes/selected", isAuthenticated, function(req, res) {
     db.Recipes.findAll({
       where: {
         userId: req.user.id
@@ -72,4 +75,168 @@ module.exports = function(app) {
       res.json(result);
     });
   });
+
+  //Route to query API with user input ingredients
+  app.get("/api/recipes/:ingredients", isAuthenticated, function(req, res) {
+    var userEntry = req.params.ingredients;
+    if (userEntry.indexOf("%2C") > -1) {
+      userEntry = userEntry.split("%2C");
+    }
+    var ingredient = new RecipeSearchData(userEntry);
+
+    // var queryUrl = `https://api.edamam.com/search?q=beets&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`;
+    var queryUrl = recipeSearchQuery(ingredient);
+
+    // console.log(ingredient);
+    // console.log(queryUrl);
+    // res.send(ingredient + "<br>" + queryUrl);
+
+    axios
+      .get(queryUrl)
+      .then(function(result) {
+        res.send(result.data.hits);
+      })
+      .catch(function(err) {
+        console.error(err.stack);
+        res.status(500).send("Something broke!");
+      });
+  });
+
+  //   //External API call
+  //   function apiQuery() {
+  //     axios
+  //       .get("https://api.edamam.com/search?q=beets&app_id=f876d2ab&app_key=f3704087ed21caa6260f24b22b7b655f")
+  //       .then(function (res) {
+  //         return res.data.hits;
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   }
 };
+
+/**
+ * Object constructor for Recipe Search Query Builder
+ * Requires either the searchFood or recipeURI parameter
+ * Instantiate with the NEW keyword
+ * @param {Text or Array} searchFood Food terms for which to search
+ * @param {Text} recipeURI Recipe ID to return
+ * @param {Text} dietSpec Blank or one of: Balanced, High-Fiber, High-Protein, Low-Carb, Low-Fat, or Low-Sodium
+ * @param {Text} mealType Blank or one of: Breakfast, Lunch, Dinner, or Snack
+ * @param {Text or Array} healthSpec Blank or array of listed health restrictions
+ * @param {Text or Array} cuisineType Blank or array of ethnic varieties
+ * @param {Text or Array} dishType Blank or array of dish classes
+ * @param {Text or Array} excludeFood Blank or food terms to exclude
+ * @param {Boolean} inSpanish TRUE to Return results in Spanish (BETA); default is FALSE
+ */
+function RecipeSearchData(
+  searchFood = null,
+  recipeURI = null,
+  dietSpec = null,
+  mealType = null,
+  healthSpec = null,
+  cuisineType = null,
+  dishType = null,
+  excludeFood = null,
+  inSpanish = null
+) {
+  return {
+    searchFood: searchFood,
+    recipeURI: recipeURI,
+    healthSpec: healthSpec,
+    dietSpec: dietSpec,
+    cuisineType: cuisineType,
+    dishType: dishType,
+    mealType: mealType,
+    excludeFood: excludeFood,
+    inSpanish: inSpanish
+  };
+}
+
+/**
+ * Build an edamam API query from the specified search data.
+ * Requires either the searchFood key or the recipeURI key.
+ * @param {Object} searchData Object containing search parameters
+ */
+function recipeSearchQuery(searchData) {
+  // const {
+  //   searchFood,
+  //   recipeURI,
+  //   healthSpec,
+  //   dietSpec,
+  //   cuisineType,
+  //   dishType,
+  //   mealType,
+  //   excludeFood,
+  //   inSpanish
+  // } = searchData;
+
+  var searchFood = searchData.searchFood;
+  var recipeURI = searchData.recipeURI;
+  var healthSpec = searchData.healthSpec;
+  var dietSpec = searchData.dietSpec;
+  var cuisineType = searchData.cuisineType;
+  var dishType = searchData.dishType;
+  var mealType = searchData.mealType;
+  var excludeFood = searchData.excludeFood;
+  var inSpanish = searchData.inSpanish;
+
+  var queryURL = "https://";
+
+  //      Base API String
+  if (!inSpanish) {
+    queryURL += "api.edamam.com/search?";
+  } else {
+    queryURL += "test-es.edamam.com/search?";
+  }
+
+  //      Query String
+  if (typeof searchFood === "array") {
+    let foodQuery = searchFood.join("%2C");
+    queryURL += "q=" + foodQuery;
+  } else if (searchFood) {
+    queryURL += "q=" + searchFood;
+  } else if (recipeURI) {
+    queryURl += "r=" + recipeURI;
+  }
+
+  //      Query Single Parameters
+  if (dietSpec) {
+    queryURL += "&diet=" + dietSpec;
+  }
+  if (mealType) {
+    queryURL += "&mealType=" + mealType;
+  }
+
+  //    Query Multiple Parameters
+  if (healthSpec && Array.isArray(healthSpec)) {
+    let healthQuery = healthSpec.join("&health=");
+    queryURL += "&health=" + healthQuery;
+  } else if (healthSpec) {
+    queryURL += "&health=" + healthSpec;
+  }
+  if (cuisineType && Array.isArray(cuisineType)) {
+    let cuisineQuery = cuisineType.join("&cuisineType=");
+    queryURL += "&cuisineType=" + cuisineQuery;
+  } else if (cuisineType) {
+    queryURL += "&cuisineType=" + cuisineType;
+  }
+  if (dishType && Array.isArray(dishType)) {
+    let dishQuery = dishType.join("&dishType=");
+    queryURL += "&dishType=" + dishQuery;
+  } else if (dishType) {
+    queryURL += "&dishType=" + dishType;
+  }
+  if (excludeFood && Array.isArray(excludeFood)) {
+    let excludeQuery = excludeFood.join("&excluded=");
+    queryURL += "&excluded=" + excludeQuery;
+  } else if (excludeFood) {
+    queryURL += "&excluded=" + excludeFood;
+  }
+
+  //    API Keys
+  queryURL +=
+    "&app_id=" + process.env.APP_ID + "&app_key=" + process.env.APP_KEY;
+
+  return queryURL;
+}
