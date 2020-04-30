@@ -101,41 +101,17 @@
                                 <p class="title">What's Cooking?</p>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input is-info" type="text" placeholder="Enter Ingredient">
+                                        <input class="input is-info" id="ingredient-input" type="text" placeholder="Enter Ingredient">
                                     </div>
-                                    <div class="box ingredients">
+                                    <div class="box ingredients" style="padding: 2px 5px 10px 5px;">
                                         <article class="media">
                                             <div class="media-content">
-                                                <div class="content">
-                                                    <p>
-                                                        <strong>Ingredients</strong>
-                                                        <ul>
-                                                            <li>
-                                                                <div class="block">
-                                                                    <span class="tag is-info">
-                                                                        Example ingredient
-                                                                        <button class="delete is-small"></button>
-                                                                    </span>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="block">
-                                                                    <span class="tag is-info">
-                                                                        Example ingredient
-                                                                        <button class="delete is-small"></button>
-                                                                    </span>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="block">
-                                                                    <span class="tag is-info">
-                                                                        Example ingredient
-                                                                        <button class="delete is-small"></button>
-                                                                    </span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </p>
+                                                <div class="content" style="min-height: 100px;">
+                                                    <ul id="ingredient-list">
+                                                        <!-- Ingredients go here -->
+                                                    </ul>
+                                                </div> 
+                                            </div> 
                                         </article>
                                     </div>
                                     <!-- Find recipes button -->
