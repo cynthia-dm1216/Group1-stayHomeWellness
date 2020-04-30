@@ -1,9 +1,7 @@
 $(document).ready(function() {
   $(".recSavBtn").on("click", function() {
     console.log("clicked");
-    
     saveRecipe();
-    
     getAllRecipes();
   });
 });
