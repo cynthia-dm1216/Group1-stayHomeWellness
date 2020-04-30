@@ -94,7 +94,6 @@ module.exports = function(app) {
     axios
       .get(queryUrl)
       .then(function(result) {
-        // console.log(result);
         res.send(result.data.hits);
       })
       .catch(function(err) {
@@ -131,15 +130,15 @@ module.exports = function(app) {
  * @param {Boolean} inSpanish TRUE to Return results in Spanish (BETA); default is FALSE
  */
 function RecipeSearchData(
-  searchFood,
-  recipeURI,
-  dietSpec,
-  mealType,
-  healthSpec,
-  cuisineType,
-  dishType,
-  excludeFood,
-  inSpanish
+  searchFood = null,
+  recipeURI = null,
+  dietSpec = null,
+  mealType = null,
+  healthSpec = null,
+  cuisineType = null,
+  dishType = null,
+  excludeFood = null,
+  inSpanish = null
 ) {
   return {
     searchFood: searchFood,
