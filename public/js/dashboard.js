@@ -47,6 +47,7 @@ $(".getRecipes").on("click", function() {
   }
 
   var queryString = "/api/recipes/" + ingredientArray.join("%2C");
+  console.log(queryString);
 
   $.ajax({
     method: "GET",
