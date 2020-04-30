@@ -24,7 +24,7 @@ $(document).ready(function () {
    getWorkouts();
  }
 
- // getting workouts from the database and updates the view
+//  // getting workouts from the database and updates the view
 //  function getWorkouts(workout) {
 //    workoutsId = workout || "";
 //    if(workoutsId) {
@@ -32,7 +32,7 @@ $(document).ready(function () {
 //    }
 //    $.get("/api/newWorkouts" + workoutsId, function(data){
 //      console.log("newWorkouts",data);
-//      newWorkouts = data;
+//      new
 //    })
 //  }
 })

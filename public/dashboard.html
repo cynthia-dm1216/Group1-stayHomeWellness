@@ -84,6 +84,9 @@
                             <a class="button is-light">
                                 Log in
                             </a>
+                            <a class="button logOut">
+                                Log Out
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -147,19 +150,26 @@
                         <!-- Recipes Tile -->
                         <div class="tile is-parent">
                             <article class="tile is-child notification tile3">
-                                <p class="title">Recipes</p>
+                                <p class="title">Suggested Recipes</p>
+                                <p class="subtitle">Click title to see full recipe</p>
                                 <div class="box ingredients">
                                     <article class="media">
                                         <div class="media-content">
                                             <div class="content">
                                                 <!-- recipes go here -->
-                                                <strong> <a>Soup</a> </strong>
-                                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                                                <strong> <a>Salad</a> </strong>
-                                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                                                <strong> <a>Brownies</a> </strong>
-                                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-
+                                                <div>
+                                                    <strong> <a href="" target="_blank" >Soup</a> </strong> 
+                                                    <a class="button is-small recSavBtn" id="id1">Save</a>   
+                                                </div>
+                                                <div>
+                                                    <strong> <a href="" target="_blank">Salad</a> </strong> 
+                                                    <a class="button is-small recSavBtn" id="id2">Save</a>  
+                                                </div>
+                                                <div>
+                                                    <strong> <a href="" target="_blank" >Casserole</a> </strong> 
+                                                    <a class="button is-small recSavBtn" id="id3">Save</a> 
+                                                </div>
+                                            </div>
                                     </article>
                                 </div>
                             </article>
@@ -169,10 +179,12 @@
                     <!-- Extra Tile at bottom -->
                     <div class="tile is-parent">
                         <article class="tile is-child notification tile4">
-                            <p class="title">Extra Tile</p>
-                            <p class="subtitle">Aligned with the right tile</p>
-                            <div class="content">
+                            <p class="title">Saved Recipes</p>
+                            <p class="subtitle"></p>
+                            <div class="recipe-title">
                                 <!-- Content -->
+                                <strong> <a href="" target="_blank" id="id1">Soup</a> </strong>
+                                <strong> <a href="" target="_blank" id="id3">Casserole</a> </strong>
                             </div>
                         </article>
                     </div>
@@ -239,6 +251,8 @@
 
     </script>
     <script type="text/javascript" src="js/workout.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/savedRecipes.js"></script>
 </body>
 
 </html>
