@@ -1,6 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
   var Recipes = sequelize.define("Recipes", {
-    //this will be a link to the edamam recipe api databse
     link: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -9,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     }
+    //this will be a link to the edamam recipe api databse
   });
 
   Recipes.associate = function(models) {

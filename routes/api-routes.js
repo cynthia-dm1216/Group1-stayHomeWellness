@@ -1,9 +1,15 @@
 // Requiring our models and passport as we've configured it
-var db = require("../models");
+var db = require("../models/");
+var Recipes = require("../models").Recipes;
 var passport = require("../config/passport");
-var edamam = require("./edamam")
+
 
 module.exports = function(app) {
+  app.get("/api/all", function(req, res) {
+    Recipes.findAll({}).then(function(results) {
+      res.json(results);
+    });
+  });
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
@@ -27,8 +33,17 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/api/edamam/examplerecipe", function(req, res) {
-    res.json(edamam);
+  app.post("/api/all", function(req, res) {
+    db.Recipes.create({
+      link: req.body.link,
+      UserId: req.body.UserId
+    })
+      .then(function() {
+        res.redirect(307, "/api/all");
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
   });
 
   // Route for logging user out
