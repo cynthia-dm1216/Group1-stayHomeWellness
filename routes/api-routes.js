@@ -160,17 +160,27 @@ function RecipeSearchData(
  * @param {Object} searchData Object containing search parameters
  */
 function recipeSearchQuery(searchData) {
-  const {
-    searchFood,
-    recipeURI,
-    healthSpec,
-    dietSpec,
-    cuisineType,
-    dishType,
-    mealType,
-    excludeFood,
-    inSpanish
-  } = searchData;
+  // const {
+  //   searchFood,
+  //   recipeURI,
+  //   healthSpec,
+  //   dietSpec,
+  //   cuisineType,
+  //   dishType,
+  //   mealType,
+  //   excludeFood,
+  //   inSpanish
+  // } = searchData;
+
+  var searchFood = searchData.searchFood;
+  var recipeURI = searchData.recipeURI;
+  var healthSpec = searchData.healthSpec;
+  var dietSpec = searchData.dietSpec;
+  var cuisineType = searchData.cuisineType;
+  var dishType = searchData.dishType;
+  var mealType = searchData.mealType;
+  var excludeFood = searchData.excludeFood;
+  var inSpanish = searchData.inSpanish;
 
   var queryURL = "https://";
 
