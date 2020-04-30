@@ -15,6 +15,7 @@
 .mainHeader {
     margin-left: 30px;
 }
+
 .signup {
     background-color: #82d4f2;
 }
@@ -62,12 +63,16 @@
     width: 100%;
 }
 
-.content {
+.content, .recipe-title {
     min-height: 125px;
 }
 
 .prefs {
     display: block;
+    margin-left: 20px;
+}
+
+.card {
     margin-left: 20px;
 }
 

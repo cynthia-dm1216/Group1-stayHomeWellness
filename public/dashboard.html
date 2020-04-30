@@ -94,20 +94,6 @@
         <div class="tiles">
             <div class="tile is-ancestor">
                 <div class="tile is-vertical is-8">
-                    <!-- <div class="tile"> -->
-                        <!-- Whats Cooking Tile -->
-                        <!-- <div class="tile is-parent is-vertical">
-                            <article class="tile is-child notification tile1">
-                                <p class="title">What's Cooking?</p>
-                                <div class="field">
-                                    <div class="control">
-                                        <input class="input is-info" id="ingredient-input" type="text"
-                                            placeholder="Enter Ingredient">
-                                    </div>
-                                    <div class="box ingredients">
-                                        <article class="media">
-                                            <div class="media-content">
-                                                <div class="content"> -->
                     <!-- Whats Cooking Tile -->
                     <div class="tile is-parent">
                         <article class="tile is-child notification tile1">
@@ -115,7 +101,8 @@
                             <div class="field">
                                 <div class="tile is-vertical ingred-tile">
                                     <div class="control">
-                                        <input class="input is-info" id="ingredient-input" type="text" placeholder="Enter Ingredient">
+                                        <input class="input is-info" id="ingredient-input" type="text"
+                                            placeholder="Enter Ingredient">
                                     </div>
                                     <div class="box ingredients">
                                         <article class="media">
@@ -131,18 +118,31 @@
                                 </div>
                                 <div class="tile is-4 prefs" style="display: block">
                                     <label for="userDiet">Diet:</label><br>
-                                    <input id="userDiet" type="text" name="userDiet" style="width: 100%;" disabled placeholder="soon to come"><br>
+                                    <input id="userDiet" type="text" name="userDiet" style="width: 100%;" disabled
+                                        placeholder="soon to come"><br>
                                     <label for="userHealth">Health:</label><br>
-                                    <input id="userHealth" type="text" name="userHealth" style="width: 100%;" disabled placeholder="soon to come"><br>
+                                    <input id="userHealth" type="text" name="userHealth" style="width: 100%;" disabled
+                                        placeholder="soon to come"><br>
                                     <label for="userMealType">Meal Type:</label><br>
-                                    <input id="userMealType" type="text" name="userMealType" style="width: 100%;" disabled placeholder="soon to come"><br>
+                                    <input id="userMealType" type="text" name="userMealType" style="width: 100%;"
+                                        disabled placeholder="soon to come"><br>
                                     <label for="userExclude">Exclude:</label><br>
-                                    <input id="userExclude" type="text" name="userExclude" style="width: 100%;" disabled placeholder="soon to come">
+                                    <input id="userExclude" type="text" name="userExclude" style="width: 100%;" disabled
+                                        placeholder="soon to come">
                                 </div>
-                                <!-- <div class="tile" style="align-self: flex-end; margin: 10px 20px; max-width: 100px;"> -->
+        
                                 <div class="tile is-child">
-                                    <!-- Find recipes button -->
-                                    <button class="button is-info getRecipes">Find Recipes</button>
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <figure class="image is-4by3">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT94BaELmEvtH-8AG5CyoGt-bc8mwT3PiJbyjtaOxUiNWCs7Zmb&usqp=CAU"
+                                                    alt="Cornucopia">
+                                            </figure>
+                                        </div>
+                                        <div>
+                                            <button class="button is-info is-fullwidth getRecipes">Find Recipes</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </article>
@@ -159,21 +159,9 @@
                                         <div class="media-content">
                                             <div class="content" id="suggested-recipes">
                                                 <!-- recipes go here -->
-                                                <!-- <div id="id1">
-                                                    <strong> <a href="" target="_blank" >Soup</a> </strong> 
-                                                    <a class="button is-small recSavBtn">Save</a>   
-                                                </div>
-                                                <div id="id2">
-                                                    <strong> <a href="" target="_blank">Salad</a> </strong> 
-                                                    <a class="button is-small recSavBtn">Save</a>  
-                                                </div>
-                                                <div id="id3">
-                                                    <strong> <a href="" target="_blank" >Casserole</a> </strong> 
-                                                    <a class="button is-small recSavBtn">Save</a> 
-                                                </div> -->
                                             </div>
                                     </article>
-                                </div>          
+                                </div>
                             </article>
                         </div>
 
@@ -181,17 +169,15 @@
                         <div class="tile is-parent">
                             <article class="tile is-child notification tile4">
                                 <p class="title">Saved Recipes</p>
-                                <p class="subtitle"></p>
-                                <div class="recipe-title" id="saved-recipes">
+                                <p class="subtitle">Click title to see full recipe</p>
+                                <div class="box recipe-title" id="saved-recipes">
                                     <!-- Content -->
-                                    <!-- <strong> <a href="" target="_blank" id="id1">Soup</a> </strong>
-                                    <strong> <a href="" target="_blank" id="id3">Casserole</a> </strong> -->
                                 </div>
                             </article>
                         </div>
                     </div>
 
-                    
+
                 </div>
 
                 <!-- Workouts Tile -->
