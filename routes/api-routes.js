@@ -52,10 +52,14 @@ module.exports = function(app) {
 
   //Route for saving a selected recipe
   app.post("/api/recipes", isAuthenticated, function(req, res) {
+    // console.log(req);
+    // console.log(req.body);
     db.Recipes.create({
       //spread keys/values from recipe object
-      body: req.body,
-      userId: req.user.id
+      link: req.body.link,
+      title: req.body.title,
+      uri: req.body.uri,
+      UserId: req.user.id
     })
       .then(function(result) {
         res.json(result);
@@ -66,10 +70,11 @@ module.exports = function(app) {
   });
 
   //Route to display selected recipes
-  app.get("/api/recipes/selected", isAuthenticated, function(req, res) {
+  app.get("/api/recipes/saved", isAuthenticated, function(req, res) {
+    console.log(req);
     db.Recipes.findAll({
       where: {
-        userId: req.user.id
+        UserId: req.user.id
       }
     }).then(function(result) {
       res.json(result);
@@ -79,10 +84,39 @@ module.exports = function(app) {
   //Route to query API with user input ingredients
   app.get("/api/recipes/:ingredients", isAuthenticated, function(req, res) {
     var userEntry = req.params.ingredients;
+    // console.log(JSON.stringify(req.body, null, 2));
+
+    // let dietSpec = req.data.dietSpec;
+    // let mealType = req.data.mealType;
+    // let healthSpec = req.data.healthSpec;
+    // let cuisineType = req.data.cuisineType;
+    // let dishType = req.data.dishType;
+    // let excludeFood = req.data.excludeFood;
+
+    const {
+      dietSpec,
+      mealType,
+      healthSpec,
+      cuisineType,
+      dishType,
+      excludeFood
+    } = req.body;
+
     if (userEntry.indexOf("%2C") > -1) {
       userEntry = userEntry.split("%2C");
     }
-    var ingredient = new RecipeSearchData(userEntry);
+    var ingredient = new RecipeSearchData(
+      userEntry,
+      null,
+      dietSpec,
+      mealType,
+      healthSpec,
+      cuisineType,
+      dishType,
+      excludeFood
+    );
+
+    // console.log(ingredient);
 
     // var queryUrl = `https://api.edamam.com/search?q=beets&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`;
     var queryUrl = recipeSearchQuery(ingredient);
@@ -94,7 +128,8 @@ module.exports = function(app) {
     axios
       .get(queryUrl)
       .then(function(result) {
-        res.send(result.data.hits);
+        // res.json(result.data.hits);
+        res.json(result.data.hits);
       })
       .catch(function(err) {
         console.error(err.stack);
