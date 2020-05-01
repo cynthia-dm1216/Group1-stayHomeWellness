@@ -6,7 +6,7 @@ var _ingredientCount = -1;
 // $(document).ready(function() {});
 
 //  Key-down event for Ingredient Input Box
-$("#ingredient-input").on("keydown", function (event) {
+$("#ingredient-input").on("keydown", function(event) {
   if (event.keyCode === _ENTER_KEYCODE || event.keyCode === _TAB_KEYCODE) {
     event.preventDefault();
 
@@ -29,7 +29,7 @@ $("#ingredient-input").on("keydown", function (event) {
 });
 
 //  On-Click event for Ingredient Delete Buttons
-$(".ingredient-delete").on("click", function () {
+$(".ingredient-delete").on("click", function() {
   //      This doesn't work. Seems like it needs a hook since the element is created dynamically, but I don't remember for sure.
   var thisValue = this.attr("id").substr(6);
   console.log(this);
@@ -38,7 +38,7 @@ $(".ingredient-delete").on("click", function () {
 });
 
 //  On-Click event for the Find Recipes button
-$(".getRecipes").on("click", function () {
+$(".getRecipes").on("click", function() {
   var ingredientArray = [];
   var ingredients = $("#ingredient-list").find("span");
   for (var i = 0; i < ingredients.length; i++) {
@@ -72,7 +72,7 @@ $(".getRecipes").on("click", function () {
   //     query: queryString,
   //     data: queryData
 
-  $.get(queryString, queryData, function (data) {
+  $.get(queryString, queryData, function(data) {
     //   }).then(function(data) {
     // console.log(data);
 
@@ -92,7 +92,7 @@ $(".getRecipes").on("click", function () {
       divSuggested.append(newDiv);
     }
 
-    $(".recipe-btn").on("click", function (event) {
+    $(".recipe-btn").on("click", function(event) {
       event.preventDefault();
       //   console.log(event.target);
 
@@ -100,7 +100,7 @@ $(".getRecipes").on("click", function () {
       var newRecipe = {
         link: event.target.getAttribute("value"),
         title: event.target.getAttribute("data-title"),
-        uri: event.target.getAttribute("data-uri"),
+        uri: event.target.getAttribute("data-uri")
       };
       // console.log(newRecipe);
 
@@ -111,7 +111,7 @@ $(".getRecipes").on("click", function () {
 });
 
 function submitRecipe(Recipe) {
-  $.post("/api/recipes", Recipe, function (data) {
+  $.post("/api/recipes", Recipe, function(data) {
     // window.location.href = "/recipes";
     console.log(data);
   });
@@ -208,7 +208,7 @@ function IngredientBlock(ingredient, index) {
  * Fetches logged-in user's saved recipes
  */
 function getSavedRecipes() {
-  $.get("/api/recipes/saved", function (data) {
+  $.get("/api/recipes/saved", function(data) {
     // console.log(data);
     if (!data) {
       return;
@@ -233,7 +233,7 @@ function renderSavedRecipes(recipes) {
     savedDiv.append(newBlock);
   }
 
-  $(".saved-delete").on("click", function (event) {
+  $(".saved-delete").on("click", function(event) {
     console.log(event);
     //  *** Delete code goes here ***
   });
@@ -263,6 +263,6 @@ function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
   return newDiv;
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
   getSavedRecipes();
 });
