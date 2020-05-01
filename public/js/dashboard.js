@@ -228,7 +228,7 @@ function renderSavedRecipes(recipes) {
   $(".saved-delete").on("click", function(event) {
     console.log(event);
     //  *** Delete code goes here ***
-  })
+  });
 }
 
 function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
