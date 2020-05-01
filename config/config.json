@@ -1,5 +1,4 @@
 {
-
   "development": {
     "use_env_variable": "LOCALDB_URL"
   },
