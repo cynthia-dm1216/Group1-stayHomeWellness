@@ -1,8 +1,6 @@
 var _ENTER_KEYCODE = 13;
 var _TAB_KEYCODE = 9;
 
-var _ingredientCount = -1;
-
 //  Key-down event for Ingredient Input Box
 $("#ingredient-input").on("keydown", function(event) {
   if (event.keyCode === _ENTER_KEYCODE || event.keyCode === _TAB_KEYCODE) {
@@ -13,23 +11,20 @@ $("#ingredient-input").on("keydown", function(event) {
 
     if (ingredientEntry && ingredientEntry.trim() !== "") {
       var ingredientsList = $("#ingredient-list");
-      _ingredientCount++;
 
-      ingredientsList.append(
-        IngredientBlock(ingredientEntry, _ingredientCount)
-      );
+      ingredientsList.append(IngredientBlock(ingredientEntry));
       ingredientInput.val("");
+
+      //  On-Click event for Ingredient Delete Buttons
+      $(".ingredient-delete").on("click", function() {
+        var thisValue = $(this)
+          .attr("id")
+          .substr(4);
+
+        $("#" + thisValue).remove();
+      });
     }
   }
-});
-
-//  On-Click event for Ingredient Delete Buttons
-$(".ingredient-delete").on("click", function() {
-  //      This doesn't work. Seems like it needs a hook since the element is created dynamically, but I don't remember for sure.
-  var thisValue = this.attr("id").substr(6);
-  console.log(this);
-  console.log(this.attr("id"));
-  $("#ingredient" + thisValue).remove();
 });
 
 //  On-Click event for the Find Recipes button
@@ -41,8 +36,11 @@ $(".getRecipes").on("click", function() {
     ingredientArray.push(item.textContent);
   }
 
-  var queryString =
-    "http://" +
+  var queryString = "";
+  if (window.document.domain !== "localhost") {
+    queryString = window.location.protocol + "//";
+  }
+  queryString +=
     window.document.domain +
     ":" +
     window.location.port +
@@ -120,7 +118,7 @@ function suggestedBlock(currentRecipe) {
   newLink.attr("style", "margin-top: 10px; font-size: 16px;");
   newLink.attr("target", "_blank");
 
-  newDiv.attr("style", "display: block; margin: 1px 0;");
+  newDiv.attr("style", "display: block; margin: 1px 0; clear: both;");
   newDiv.append(newImage);
   newDiv.append(newLink);
   newDiv.append(newBreak);
@@ -132,26 +130,58 @@ function suggestedBlock(currentRecipe) {
 
 /**
  * Create list item tag for Ingredients entry
+ *   Button tag has ID "del-<uniqueID>"
+ *   List Item has ID "<uniqueID>"
  * @param {Text} ingredient Text value
- * @param {Number} index Unique index for dynamic manipulation
  */
-function IngredientBlock(ingredient, index) {
-  var liTag = $("<li>");
-  var divTag = $("<div>").addClass("block");
-  var spanTag = $("<span>").addClass("tag is-info");
-  var buttonDelete = $("<button>").addClass(
-    "delete is-small ingredient-delete"
-  );
+function IngredientBlock(ingredient) {
+  let blockID = returnDateTimeIdentifier("ingredient");
 
-  liTag.attr("id", "ingredient" + index);
+  var liTag = $("<li>");
+  var divTag = $("<div>");
+  var spanTag = $("<span>");
+  var buttonDelete = $("<button>");
+
+  divTag.addClass("block");
+  spanTag.addClass("tag is-info");
+  buttonDelete.addClass("delete is-small ingredient-delete");
+
+  liTag.attr("id", blockID);
   spanTag.text(ingredient);
-  buttonDelete.attr("id", "delete" + index);
+  buttonDelete.attr("id", "del-" + blockID);
 
   spanTag.append(buttonDelete);
   divTag.append(spanTag);
   liTag.append(divTag);
 
   return liTag;
+}
+
+function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
+  let blockID = returnDateTimeIdentifier("saved");
+
+  let newDiv = $("<div>");
+  let newLink = $("<a>");
+  let newBtn = $("<a>");
+
+  newBtn.addClass("delete is-small saved-delete");
+  newBtn.attr("value", recipeLink);
+  newBtn.attr("style", "display: inline-flex; float: right;");
+  newBtn.attr("id", "del-" + blockID);
+  newBtn.attr("data-uri", recipeUri);
+
+  newLink.text(recipeTitle);
+  newLink.attr("href", recipeLink);
+  newLink.attr("style", "margin-top: 10px; font-size: 16px;");
+  newLink.attr("target", "_blank");
+
+  //    This is a terrible way to do this. We need to think of something better. -- Done. JA
+  newDiv.attr("id", blockID);
+
+  newDiv.append(newLink);
+  newDiv.append(newBtn);
+
+  return newDiv;
 }
 
 /**
@@ -183,34 +213,65 @@ function renderSavedRecipes(recipes) {
   }
 
   $(".saved-delete").on("click", function(event) {
-    console.log(event);
-    //  *** Delete code goes here ***
+    event.preventDefault();
+    console.log(event.target);
+    let deleteId = $(event.target)
+      .attr("id")
+      .substr(4);
+    let deleteUri = $(event.target).attr("data-uri");
+    let queryString = "";
+    if (window.document.domain !== "localhost") {
+      queryString = window.location.protocol + "//";
+    }
+    queryString +=
+      window.document.domain +
+      ":" +
+      window.location.port +
+      "/api/recipes/delete/" +
+      deleteUri;
+
+    console.log(queryString);
+    $.post(queryString, function(err) {
+      if (err) {
+        throw err;
+      }
+      $("#" + deleteId).remove();
+    });
   });
 }
 
-function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
-  let newDiv = $("<div>");
-  let newLink = $("<a>");
-  let newBtn = $("<a>");
+//  **  Utility Functions
 
-  newBtn.addClass("delete is-small saved-delete");
-  newBtn.attr("value", recipeLink);
-  newBtn.attr("style", "display: inline-flex; float: right;");
+/**
+ * Create unique time-based page ID with the format YYMMDDHHmmssfff
+ * @param {Text} prefix Prefix to add before ID
+ * @param {Text} suffix Suffix to add after ID
+ * @param {Text} separator Separator to delimit prefix and/or suffix
+ */
+function returnDateTimeIdentifier(prefix = "", suffix = "", separator = "-") {
+  let newDate = new Date();
+  let identifier =
+    newDate
+      .getFullYear()
+      .toString()
+      .substr(2) +
+    newDate.getMonth() +
+    newDate.getDate() +
+    newDate.getHours() +
+    newDate.getMinutes() +
+    newDate.getSeconds() +
+    newDate.getMilliseconds();
 
-  newLink.text(recipeTitle);
-  newLink.attr("href", recipeLink);
-  newLink.attr("style", "margin-top: 10px; font-size: 16px;");
-  newLink.attr("target", "_blank");
-  newLink.attr("data-uri", recipeUri);
-
-  //    This is a terrible way to do this. We need to think of something better.
-  newDiv.attr("id", recipeLink);
-
-  newDiv.append(newLink);
-  newDiv.append(newBtn);
-
-  return newDiv;
+  if (prefix) {
+    identifier = prefix + separator + identifier;
+  }
+  if (suffix) {
+    identifier += separator + suffix;
+  }
+  return identifier;
 }
+
+//  **  Logic
 
 $(document).ready(function() {
   getSavedRecipes();
