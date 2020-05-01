@@ -123,8 +123,7 @@ $(".getRecipes").on("click", function() {
 
       // Make a newRecipe object
       var newRecipe = {
-        link: event.target.getAttribute("value"),
-        UserId: 1
+        link: event.target.getAttribute("value")
       };
       console.log(newRecipe);
 
@@ -155,8 +154,9 @@ $(".getRecipes").on("click", function() {
 });
 
 function submitRecipe(Recipe) {
-  $.post("/api/all/", Recipe, function() {
-    window.location.href = "/all";
+  $.post("/api/recipes", Recipe, function(data) {
+    // window.location.href = "/recipes";
+    console.log(data);
   });
 }
 

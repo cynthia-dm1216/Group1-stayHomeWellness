@@ -52,10 +52,11 @@ module.exports = function(app) {
 
   //Route for saving a selected recipe
   app.post("/api/recipes", isAuthenticated, function(req, res) {
-    console.log(req);
+    // console.log(req);
+    console.log(req.body);
     db.Recipes.create({
       //spread keys/values from recipe object
-      link: req.body,
+      link: req.body.link,
       UserId: req.user.id
     })
       .then(function(result) {
