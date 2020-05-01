@@ -219,6 +219,7 @@ function recipeSearchQuery(searchData) {
   var excludeFood = searchData.excludeFood;
   var inSpanish = searchData.inSpanish;
 
+  // var queryURL = "http://";
   var queryURL = "https://";
 
   //      Base API String
