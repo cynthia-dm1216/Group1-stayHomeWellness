@@ -59,14 +59,14 @@ $(".getRecipes").on("click", function() {
   };
   console.log(queryString);
 
-//   $.ajax({
-//     method: "GET",
-//     query: queryString,
-//     data: queryData
+  //   $.ajax({
+  //     method: "GET",
+  //     query: queryString,
+  //     data: queryData
 
   $.get(queryString, queryData, function(data) {
 
-//   }).then(function(data) {
+    //   }).then(function(data) {
     // console.log(data);
 
     var numberToPost = 6;
@@ -75,26 +75,36 @@ $(".getRecipes").on("click", function() {
     // console.log(data);
 
     for (var i = 0; i < numberToPost; i++) {
+      if (!data[i].recipe) {
+        break;
+      }
+
       var currentRecipe = data[i].recipe;
 
       var imgSrc = currentRecipe.image;
-      var newDiv = divSuggested.append($("<div>"));
-      var newImage = newDiv.append($(`<img>`));
-      var newSpace = newDiv.append($(`<a>`));
-      var newBtn = newDiv.append(
-        $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`)
-      );
+      var newDiv = $("<div>");
+      var newImage = $("<img>");
+      var newLink = $("<a>");
+      var newBreak = $("<br>");
+      var newBtn = $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`);
 
       newSpace.attr("id", "suggested-tag" + i);
       newBtn.attr("id", "suggested-btn" + i);
       newImage.attr("src", imgSrc);
       newImage.attr("alt", "food picture");
-      newImage.attr("style", "display: inline-flex;");
-      newImage.attr("height", "25px").attr("width", "25px");
-      newSpace.text(data[i].recipe.label);
-      newSpace.attr("ref", currentRecipe.url);
-      newSpace.attr("style", "margin-top: 10px; font-size: 16px;");
+      newImage.attr("style", "display: flex; float: left;");
+      newImage.attr("height", "50px").attr("width", "50px");
+      newLink.text(data[i].recipe.label);
+      newLink.attr("href", currentRecipe.url);
+      newLink.attr("style", "margin-top: 10px; font-size: 16px;");
+      newLink.attr("target", "_blank");
       console.log(data[i].recipe.label, data[i].recipe.image, data[i].recipe.uri);
+
+      newDiv.append(newImage);
+      newDiv.append(newLink);
+      newDiv.append(newBreak);
+      newDiv.append(newBtn);
+      divSuggested.append(newDiv);
     }
 
     // var newSpace1 = $(`<p style="margin-top: 10px" >`);
