@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $(".recSavBtn").on("click", function() {
-    console.log("clicked");
+    // console.log("clicked");
     saveRecipe();
     getAllRecipes();
   });

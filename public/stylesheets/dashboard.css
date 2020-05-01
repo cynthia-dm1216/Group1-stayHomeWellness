@@ -15,8 +15,13 @@
 .mainHeader {
     margin-left: 30px;
 }
+
 .signup {
     background-color: #82d4f2;
+}
+
+.navbar {
+    margin-left: 10px;
 }
 
 .tiles {
@@ -40,8 +45,35 @@
     background-color: #04a1da;
 }
 
+.field {
+    display: flex;
+}
+
+.ingred-tile {
+    display: block;
+}
+
+.control {
+    width: 100%;
+}
+
 .ingredients {
     margin-top: 10px;
+    padding: 2px 5px 10px 5px;
+    width: 100%;
+}
+
+.content, .recipe-title {
+    min-height: 125px;
+}
+
+.prefs {
+    display: block;
+    margin-left: 20px;
+}
+
+.card {
+    margin-left: 20px;
 }
 
 .getRecipes {
