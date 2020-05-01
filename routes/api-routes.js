@@ -53,10 +53,12 @@ module.exports = function(app) {
   //Route for saving a selected recipe
   app.post("/api/recipes", isAuthenticated, function(req, res) {
     // console.log(req);
-    console.log(req.body);
+    // console.log(req.body);
     db.Recipes.create({
       //spread keys/values from recipe object
       link: req.body.link,
+      title: req.body.title,
+      uri: req.body.uri,
       UserId: req.user.id
     })
       .then(function(result) {
@@ -68,11 +70,11 @@ module.exports = function(app) {
   });
 
   //Route to display selected recipes
-  app.get("/api/recipes/selected", isAuthenticated, function(req, res) {
+  app.get("/api/recipes/saved", isAuthenticated, function(req, res) {
     console.log(req);
     db.Recipes.findAll({
       where: {
-        userId: req.user.id
+        UserId: req.user.id
       }
     }).then(function(result) {
       res.json(result);

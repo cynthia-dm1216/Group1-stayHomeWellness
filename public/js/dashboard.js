@@ -57,7 +57,7 @@ $(".getRecipes").on("click", function() {
   var queryData = {
     dietSpec: "Low-Fat"
   };
-  console.log(queryString);
+  //   console.log(queryString);
 
   //   $.ajax({
   //     method: "GET",
@@ -78,77 +78,26 @@ $(".getRecipes").on("click", function() {
         break;
       }
 
-      var currentRecipe = data[i].recipe;
+      let currentRecipe = data[i].recipe;
+      let newDiv = suggestedBlock(currentRecipe);
 
-      var recipeImage = currentRecipe.image;
-      var recipeLabel = currentRecipe.label;
-      var recipeURI = currentRecipe.uri;
-      var recipeLink = currentRecipe.url;
-      var newDiv = $("<div>");
-      var newImage = $("<img>");
-      var newLink = $("<a>");
-      var newBreak = $("<br>");
-      var newBtn = $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`);
-
-      //   newSpace.attr("id", "suggested-tag" + i);
-      newBtn.attr("id", "suggested-btn" + i);
-      newBtn.addClass("recipe-btn");
-      newBtn.attr("value", recipeURI);
-
-      newImage.attr("src", recipeImage);
-      newImage.attr("alt", "food picture");
-      newImage.attr("style", "display: flex; float: left;");
-      newImage.attr("height", "50px").attr("width", "50px");
-
-      newLink.text(recipeLabel);
-      newLink.attr("href", recipeLink);
-      newLink.attr("style", "margin-top: 10px; font-size: 16px;");
-      newLink.attr("target", "_blank");
-
-      //   console.log(
-      //     data[i].recipe.label,
-      //     data[i].recipe.image,
-      //     data[i].recipe.uri);
-
-      newDiv.append(newImage);
-      newDiv.append(newLink);
-      newDiv.append(newBreak);
-      newDiv.append(newBtn);
       divSuggested.append(newDiv);
     }
 
     $(".recipe-btn").on("click", function(event) {
       event.preventDefault();
-      console.log(event.target);
+      //   console.log(event.target);
 
       // Make a newRecipe object
       var newRecipe = {
-        link: event.target.getAttribute("value")
+        link: event.target.getAttribute("value"),
+        title: event.target.getAttribute("data-title"),
+        uri: event.target.getAttribute("data-uri")
       };
-      console.log(newRecipe);
+      // console.log(newRecipe);
 
       submitRecipe(newRecipe);
     });
-
-    // var newSpace1 = $(`<p style="margin-top: 10px" >`);
-    // var newSpace2 = $(`<p style="margin-top: 10px" >`);
-    // var newSpace3 = $(`<p style="margin-top: 10px" >`);
-    // var newSpace4 = $(`<p style="margin-top: 10px" >`);
-    // var newSpace5 = $(`<p style="margin-top: 10px" >`);
-
-    // var newbtn2 = $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`)
-    // var newbtn3 = $(`<a class="button is-small recSavBtn" id="btn3">Save</a>`)
-    // var newbtn4 = $(`<a class="button is-small recSavBtn" id="btn4">Save</a>`)
-    // var newbtn5 = $(`<a class="button is-small recSavBtn" id="btn5">Save</a>`)
-    // var newbtn6 = $(`<a class="button is-small recSavBtn" id="btn6">Save</a>`)
-
-    console.log(data);
-    //var beetRecipe = (JSON.parse(resp));
-    // var firstRecipe = JSON.stringify(resp.hits[0].recipe.label);
-    // var secondRecipe = JSON.stringify(resp.hits[1].recipe.label);
-    // var thirdRecipe = JSON.stringify(resp.hits[2].recipe.label);
-    // var fourthRecipe = JSON.stringify(resp.hits[3].recipe.label);
-    // var fifthRecipe = JSON.stringify(resp.hits[4].recipe.label);
   });
   // console.log(ingredientArray);
 });
@@ -160,6 +109,48 @@ function submitRecipe(Recipe) {
   });
 }
 
+/**
+ * Blockifies the given recipe from Edamam API for rendering
+ * @param {Object} currentRecipe Recipe object from API JSON structure
+ */
+function suggestedBlock(currentRecipe) {
+  let recipeImage = currentRecipe.image;
+  let recipeLabel = currentRecipe.label;
+  let recipeURI = currentRecipe.uri;
+  let recipeLink = currentRecipe.url;
+  let newDiv = $("<div>");
+  let newImage = $("<img>");
+  let newLink = $("<a>");
+  let newBreak = $("<br>");
+  let newBtn = $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`);
+
+  //   newSpace.attr("id", "suggested-tag" + i);
+  //   newBtn.attr("id", "suggested-btn" + i);
+  newBtn.addClass("recipe-btn");
+  newBtn.attr("value", recipeLink);
+  newBtn.attr("data-title", recipeLabel);
+  newBtn.attr("data-uri", recipeURI);
+  newBtn.attr("style", "display: flex; float: right;");
+
+  newImage.attr("src", recipeImage);
+  newImage.attr("alt", "food picture");
+  newImage.attr("style", "display: flex; float: left;");
+  newImage.attr("height", "50px").attr("width", "50px");
+
+  newLink.text(recipeLabel);
+  newLink.attr("href", recipeLink);
+  newLink.attr("style", "margin-top: 10px; font-size: 16px;");
+  newLink.attr("target", "_blank");
+
+  newDiv.attr("style", "display: block; margin: 1px 0;");
+  newDiv.append(newImage);
+  newDiv.append(newLink);
+  newDiv.append(newBreak);
+  newDiv.append(newBtn);
+  newDiv.append(newBreak);
+
+  return newDiv;
+}
 // function RecipeBlock(name, link, type, imageURL) {
 //   var imgHTML = "";
 //   if (imageURL === undefined || imageURL === "") {
@@ -204,3 +195,66 @@ function IngredientBlock(ingredient, index) {
 
   return liTag;
 }
+
+/**
+ * Fetches logged-in user's saved recipes
+ */
+function getSavedRecipes() {
+  $.get("/api/recipes/saved", function(data) {
+    // console.log(data);
+    if (!data) {
+      return;
+    }
+    renderSavedRecipes(data);
+  });
+}
+
+/**
+ * Displays saved recipes to the page
+ * @param {Array} recipes DB record array from Recipes table to be displayed
+ */
+function renderSavedRecipes(recipes) {
+  let savedDiv = $("#saved-recipes");
+  for (var i = 0; i < recipes.length; i++) {
+    let currentLink = recipes[i].link;
+    let currentTitle = recipes[i].title;
+    let currentUri = recipes[i].uri;
+    console.log(currentLink, currentTitle);
+
+    let newBlock = savedRecipeBlock(currentLink, currentTitle, currentUri);
+    savedDiv.append(newBlock);
+  }
+
+  $(".saved-delete").on("click", function(event) {
+    console.log(event);
+    //  *** Delete code goes here ***
+  })
+}
+
+function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
+  let newDiv = $("<div>");
+  let newLink = $("<a>");
+  let newBtn = $("<a>");
+
+  newBtn.addClass("delete is-small saved-delete");
+  newBtn.attr("value", recipeLink);
+  newBtn.attr("style", "display: inline-flex; float: right;");
+
+  newLink.text(recipeTitle);
+  newLink.attr("href", recipeLink);
+  newLink.attr("style", "margin-top: 10px; font-size: 16px;");
+  newLink.attr("target", "_blank");
+  newLink.attr("data-uri", recipeUri);
+
+  //    This is a terrible way to do this. We need to think of something better.
+  newDiv.attr("id", recipeLink);
+
+  newDiv.append(newLink);
+  newDiv.append(newBtn);
+
+  return newDiv;
+}
+
+$(document).ready(function() {
+  getSavedRecipes();
+});
