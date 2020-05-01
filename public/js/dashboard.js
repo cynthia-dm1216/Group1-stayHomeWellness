@@ -65,7 +65,6 @@ $(".getRecipes").on("click", function() {
   //     data: queryData
 
   $.get(queryString, queryData, function(data) {
-
     //   }).then(function(data) {
     // console.log(data);
 
@@ -81,24 +80,35 @@ $(".getRecipes").on("click", function() {
 
       var currentRecipe = data[i].recipe;
 
-      var imgSrc = currentRecipe.image;
+      var recipeImage = currentRecipe.image;
+      var recipeLabel = currentRecipe.label;
+      var recipeURI = currentRecipe.uri;
+      var recipeLink = currentRecipe.url;
       var newDiv = $("<div>");
       var newImage = $("<img>");
       var newLink = $("<a>");
       var newBreak = $("<br>");
       var newBtn = $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`);
 
-      newSpace.attr("id", "suggested-tag" + i);
+      //   newSpace.attr("id", "suggested-tag" + i);
       newBtn.attr("id", "suggested-btn" + i);
-      newImage.attr("src", imgSrc);
+      newBtn.addClass("recipe-btn");
+      newBtn.attr("value", recipeURI);
+
+      newImage.attr("src", recipeImage);
       newImage.attr("alt", "food picture");
       newImage.attr("style", "display: flex; float: left;");
       newImage.attr("height", "50px").attr("width", "50px");
-      newLink.text(data[i].recipe.label);
-      newLink.attr("href", currentRecipe.url);
+
+      newLink.text(recipeLabel);
+      newLink.attr("href", recipeLink);
       newLink.attr("style", "margin-top: 10px; font-size: 16px;");
       newLink.attr("target", "_blank");
-      console.log(data[i].recipe.label, data[i].recipe.image, data[i].recipe.uri);
+
+      //   console.log(
+      //     data[i].recipe.label,
+      //     data[i].recipe.image,
+      //     data[i].recipe.uri);
 
       newDiv.append(newImage);
       newDiv.append(newLink);
@@ -106,6 +116,20 @@ $(".getRecipes").on("click", function() {
       newDiv.append(newBtn);
       divSuggested.append(newDiv);
     }
+
+    $(".recipe-btn").on("click", function(event) {
+      event.preventDefault();
+      console.log(event.target);
+
+      // Make a newRecipe object
+      var newRecipe = {
+        link: event.target.getAttribute("value"),
+        UserId: 1
+      };
+      console.log(newRecipe);
+
+      submitRecipe(newRecipe);
+    });
 
     // var newSpace1 = $(`<p style="margin-top: 10px" >`);
     // var newSpace2 = $(`<p style="margin-top: 10px" >`);
@@ -126,10 +150,15 @@ $(".getRecipes").on("click", function() {
     // var thirdRecipe = JSON.stringify(resp.hits[2].recipe.label);
     // var fourthRecipe = JSON.stringify(resp.hits[3].recipe.label);
     // var fifthRecipe = JSON.stringify(resp.hits[4].recipe.label);
-
   });
   // console.log(ingredientArray);
 });
+
+function submitRecipe(Recipe) {
+  $.post("/api/all/", Recipe, function() {
+    window.location.href = "/all";
+  });
+}
 
 // function RecipeBlock(name, link, type, imageURL) {
 //   var imgHTML = "";
