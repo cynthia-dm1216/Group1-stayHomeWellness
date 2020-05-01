@@ -46,14 +46,77 @@ $(".getRecipes").on("click", function() {
     ingredientArray.push(item.textContent);
   }
 
-  var queryString = "/api/recipes/" + ingredientArray.join("%2C");
+  var queryString =
+    "http://" +
+    window.document.domain +
+    ":" +
+    window.location.port +
+    "/api/recipes/" +
+    ingredientArray.join("%2C");
+
+  var queryData = {
+    dietSpec: "Low-Fat"
+  };
   console.log(queryString);
 
-  $.ajax({
-    method: "GET",
-    query: queryString
-  }).then(function(data) {
+//   $.ajax({
+//     method: "GET",
+//     query: queryString,
+//     data: queryData
+
+  $.get(queryString, queryData, function(data) {
+
+//   }).then(function(data) {
+    // console.log(data);
+
+    var numberToPost = 6;
+    var divSuggested = $("#suggested-recipes");
+
+    // console.log(data);
+
+    for (var i = 0; i < numberToPost; i++) {
+      var currentRecipe = data[i].recipe;
+
+      var imgSrc = currentRecipe.image;
+      var newDiv = divSuggested.append($("<div>"));
+      var newImage = newDiv.append($(`<img>`));
+      var newSpace = newDiv.append($(`<a>`));
+      var newBtn = newDiv.append(
+        $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`)
+      );
+
+      newSpace.attr("id", "suggested-tag" + i);
+      newBtn.attr("id", "suggested-btn" + i);
+      newImage.attr("src", imgSrc);
+      newImage.attr("alt", "food picture");
+      newImage.attr("style", "display: inline-flex;");
+      newImage.attr("height", "25px").attr("width", "25px");
+      newSpace.text(data[i].recipe.label);
+      newSpace.attr("ref", currentRecipe.url);
+      newSpace.attr("style", "margin-top: 10px; font-size: 16px;");
+      console.log(data[i].recipe.label, data[i].recipe.image, data[i].recipe.uri);
+    }
+
+    // var newSpace1 = $(`<p style="margin-top: 10px" >`);
+    // var newSpace2 = $(`<p style="margin-top: 10px" >`);
+    // var newSpace3 = $(`<p style="margin-top: 10px" >`);
+    // var newSpace4 = $(`<p style="margin-top: 10px" >`);
+    // var newSpace5 = $(`<p style="margin-top: 10px" >`);
+
+    // var newbtn2 = $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`)
+    // var newbtn3 = $(`<a class="button is-small recSavBtn" id="btn3">Save</a>`)
+    // var newbtn4 = $(`<a class="button is-small recSavBtn" id="btn4">Save</a>`)
+    // var newbtn5 = $(`<a class="button is-small recSavBtn" id="btn5">Save</a>`)
+    // var newbtn6 = $(`<a class="button is-small recSavBtn" id="btn6">Save</a>`)
+
     console.log(data);
+    //var beetRecipe = (JSON.parse(resp));
+    // var firstRecipe = JSON.stringify(resp.hits[0].recipe.label);
+    // var secondRecipe = JSON.stringify(resp.hits[1].recipe.label);
+    // var thirdRecipe = JSON.stringify(resp.hits[2].recipe.label);
+    // var fourthRecipe = JSON.stringify(resp.hits[3].recipe.label);
+    // var fifthRecipe = JSON.stringify(resp.hits[4].recipe.label);
+
   });
   // console.log(ingredientArray);
 });
