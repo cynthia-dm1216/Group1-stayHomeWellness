@@ -87,14 +87,6 @@ module.exports = function(app) {
   //Route to query API with user input ingredients
   app.get("/api/recipes/:ingredients", isAuthenticated, function(req, res) {
     var userEntry = req.params.ingredients;
-    // console.log(JSON.stringify(req.body, null, 2));
-
-    // let dietSpec = req.data.dietSpec;
-    // let mealType = req.data.mealType;
-    // let healthSpec = req.data.healthSpec;
-    // let cuisineType = req.data.cuisineType;
-    // let dishType = req.data.dishType;
-    // let excludeFood = req.data.excludeFood;
 
     const {
       dietSpec,
@@ -119,14 +111,7 @@ module.exports = function(app) {
       excludeFood
     );
 
-    // console.log(ingredient);
-
-    // var queryUrl = `https://api.edamam.com/search?q=beets&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`;
     var queryUrl = recipeSearchQuery(ingredient);
-
-    // console.log(ingredient);
-    // console.log(queryUrl);
-    // res.send(ingredient + "<br>" + queryUrl);
 
     axios
       .get(queryUrl)
@@ -139,18 +124,6 @@ module.exports = function(app) {
         res.status(500).send("Something broke!");
       });
   });
-
-  //   //External API call
-  //   function apiQuery() {
-  //     axios
-  //       .get("https://api.edamam.com/search?q=beets&app_id=f876d2ab&app_key=f3704087ed21caa6260f24b22b7b655f")
-  //       .then(function (res) {
-  //         return res.data.hits;
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   }
 };
 
 /**
@@ -197,27 +170,17 @@ function RecipeSearchData(
  * @param {Object} searchData Object containing search parameters
  */
 function recipeSearchQuery(searchData) {
-  // const {
-  //   searchFood,
-  //   recipeURI,
-  //   healthSpec,
-  //   dietSpec,
-  //   cuisineType,
-  //   dishType,
-  //   mealType,
-  //   excludeFood,
-  //   inSpanish
-  // } = searchData;
-
-  var searchFood = searchData.searchFood;
-  var recipeURI = searchData.recipeURI;
-  var healthSpec = searchData.healthSpec;
-  var dietSpec = searchData.dietSpec;
-  var cuisineType = searchData.cuisineType;
-  var dishType = searchData.dishType;
-  var mealType = searchData.mealType;
-  var excludeFood = searchData.excludeFood;
-  var inSpanish = searchData.inSpanish;
+  const {
+    searchFood,
+    recipeURI,
+    healthSpec,
+    dietSpec,
+    cuisineType,
+    dishType,
+    mealType,
+    excludeFood,
+    inSpanish
+  } = searchData;
 
   // var queryURL = "http://";
   var queryURL = "https://";
