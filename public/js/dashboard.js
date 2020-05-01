@@ -2,15 +2,12 @@ var _ENTER_KEYCODE = 13;
 var _TAB_KEYCODE = 9;
 
 var _ingredientCount = -1;
-//please update me now
-// $(document).ready(function() {});
 
 //  Key-down event for Ingredient Input Box
 $("#ingredient-input").on("keydown", function(event) {
   if (event.keyCode === _ENTER_KEYCODE || event.keyCode === _TAB_KEYCODE) {
     event.preventDefault();
 
-    // console.log(event.keyCode);
     var ingredientInput = $("#ingredient-input");
     var ingredientEntry = ingredientInput.val();
 
@@ -18,8 +15,6 @@ $("#ingredient-input").on("keydown", function(event) {
       var ingredientsList = $("#ingredient-list");
       _ingredientCount++;
 
-      // console.log(ingredientEntry);
-      // console.log(_ingredientCount);
       ingredientsList.append(
         IngredientBlock(ingredientEntry, _ingredientCount)
       );
@@ -65,21 +60,10 @@ $(".getRecipes").on("click", function() {
     userMealType: userMealType,
     userExclude: userExclude
   };
-  //   console.log(queryString);
-
-  //   $.ajax({
-  //     method: "GET",
-  //     query: queryString,
-  //     data: queryData
 
   $.get(queryString, queryData, function(data) {
-    //   }).then(function(data) {
-    // console.log(data);
-
     var numberToPost = 6;
     var divSuggested = $("#suggested-recipes");
-
-    // console.log(data);
 
     for (var i = 0; i < numberToPost; i++) {
       if (!data[i].recipe) {
@@ -94,7 +78,6 @@ $(".getRecipes").on("click", function() {
 
     $(".recipe-btn").on("click", function(event) {
       event.preventDefault();
-      //   console.log(event.target);
 
       // Make a newRecipe object
       var newRecipe = {
@@ -102,17 +85,14 @@ $(".getRecipes").on("click", function() {
         title: event.target.getAttribute("data-title"),
         uri: event.target.getAttribute("data-uri")
       };
-      // console.log(newRecipe);
 
       submitRecipe(newRecipe);
     });
   });
-  // console.log(ingredientArray);
 });
 
 function submitRecipe(Recipe) {
   $.post("/api/recipes", Recipe, function(data) {
-    // window.location.href = "/recipes";
     console.log(data);
   });
 }
@@ -132,8 +112,6 @@ function suggestedBlock(currentRecipe) {
   let newBreak = $("<br>");
   let newBtn = $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`);
 
-  //   newSpace.attr("id", "suggested-tag" + i);
-  //   newBtn.attr("id", "suggested-btn" + i);
   newBtn.addClass("recipe-btn");
   newBtn.attr("value", recipeLink);
   newBtn.attr("data-title", recipeLabel);
@@ -159,26 +137,6 @@ function suggestedBlock(currentRecipe) {
 
   return newDiv;
 }
-// function RecipeBlock(name, link, type, imageURL) {
-//   var imgHTML = "";
-//   if (imageURL === undefined || imageURL === "") {
-//     imgHTML = `<img src="${imageURL}" alt="picture of ${name}" height="100px" width="100px">`;
-//   }
-//   var myHTML = `
-//         <strong><a href="${link}" target="_blank">${type}</a></strong>
-//         ${imgHTML}
-//         <p>${type}</p>
-//         <a class="button is-small recSaveBtn">Save</a>
-//     `;
-//   return myHTML;
-// }
-
-// function recipeContent(recipeArray) {
-//   var recipeDiv = $("#suggested-recipes");
-//   var newRecipe = $("<p>");
-
-//   recipeDiv.append(newRecipe);
-// }
 
 /**
  * Create list item tag for Ingredients entry
@@ -209,7 +167,6 @@ function IngredientBlock(ingredient, index) {
  */
 function getSavedRecipes() {
   $.get("/api/recipes/saved", function(data) {
-    // console.log(data);
     if (!data) {
       return;
     }

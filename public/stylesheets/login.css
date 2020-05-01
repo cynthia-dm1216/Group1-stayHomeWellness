@@ -1,9 +1,6 @@
-form.signup,{
+form.signup,
+form.login {
   margin-top: 50px;
-  navbar navbar-default
-  
-
-  
 }
 
 .navbar navbar-default {
@@ -13,20 +10,14 @@ form.signup,{
     align-items: center;
     height: 250px;
     background-image: linear-gradient(to bottom, #58c4eb , white);
-    
-    
-    
-
 }
 
 .body {
     background-image: linear-gradient(to top, #58c4eb , white);
 }
+
 .navbar  {
     background-image: linear-gradient(to bottom, #58c4eb , white);
-    
-    
-
 }
 
 .container {
@@ -35,13 +26,9 @@ form.signup,{
 
 .navbar-header {
     background-image: linear-gradient(to bottom, #58c4eb , white);
-
 }
 
 .multicolortext {
     color: red;
 }
-/* .body {
-    background-image: linear-gradient(to bottomtop, #58c4eb , white);
-} */
 
