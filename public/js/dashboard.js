@@ -47,7 +47,7 @@ $(".getRecipes").on("click", function () {
   }
 
   var queryString =
-    "http://" +
+    "https://" +
     window.document.domain +
     ":" +
     window.location.port +
