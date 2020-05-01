@@ -47,15 +47,23 @@ $(".getRecipes").on("click", function () {
   }
 
   var queryString =
-    "http://" +
+    "https://" +
     window.document.domain +
     ":" +
     window.location.port +
     "/api/recipes/" +
     ingredientArray.join("%2C");
 
+  var dietSpec = $("#userDiet").val();
+  var userHealth = $("#userHealth").val();
+  var userMealType = $("#userMealType").val();
+  var userExclude = $("#userExclude").val();
+
   var queryData = {
-    dietSpec: "Low-Fat",
+    dietSpec: dietSpec,
+    userHealth: userHealth,
+    userMealType: userMealType,
+    userExclude: userExclude
   };
   //   console.log(queryString);
 

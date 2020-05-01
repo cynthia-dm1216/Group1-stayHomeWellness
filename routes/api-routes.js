@@ -58,7 +58,7 @@ module.exports = function (app) {
     // console.log(req);
     // console.log(req.body);
     db.Recipes.create({
-      //spread keys/values from recipe object
+      //spread keys/vales from recipe object
       link: req.body.link,
       title: req.body.title,
       uri: req.body.uri,
