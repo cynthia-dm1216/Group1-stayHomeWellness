@@ -37,13 +37,10 @@ $(".getRecipes").on("click", function () {
   }
 
   var queryString = "";
-  queryString = window.location.protocol + "//";
-  queryString +=
-    window.document.domain +
-    ":" +
-    window.location.port +
-    "/api/recipes/" +
-    ingredientArray.join("%2C");
+  if (window.document.domain !== "localhost") {
+    queryString = window.location.protocol + "//" + window.document.domain;
+  }
+  queryString += "/api/recipes/" + ingredientArray.join("%2C");
 
   var dietSpec = $("#userDiet").val();
   var userHealth = $("#userHealth").val();
@@ -107,7 +104,7 @@ function suggestedBlock(currentRecipe) {
   let newImage = $("<img>");
   let newLink = $("<a>");
   let newBreak = $("<br>");
-  let newBtn = $(`<a class="button is-small recSavBtn" id="btn2">Save</a>`);
+  let newBtn = $(`<a class="button is-small recSavBtn">Save</a>`);
 
   newBtn.addClass("recipe-btn");
   newBtn.attr("value", recipeLink);
@@ -242,12 +239,7 @@ function renderSavedRecipes(recipes) {
 
     let queryString = "";
     if (window.document.domain !== "localhost") {
-      queryString =
-        window.location.protocol +
-        "//" +
-        window.document.domain +
-        ":" +
-        window.location.port;
+      queryString = window.location.protocol + "//" + window.document.domain;
     }
     queryString += "/api/recipes/delete";
 
