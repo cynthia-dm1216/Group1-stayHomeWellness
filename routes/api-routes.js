@@ -8,7 +8,7 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
-  // Otherwise the user will be sent an error
+  // Otherwise the user will be sent an error.
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
     res.json(req.user);
   });
@@ -53,7 +53,7 @@ module.exports = function(app) {
   //Route for saving a selected recipe
   app.post("/api/recipes", isAuthenticated, function(req, res) {
     db.Recipes.create({
-      //spread keys/values from recipe object
+      //spread keys/vales from recipe object
       link: req.body.link,
       title: req.body.title,
       uri: req.body.uri,
@@ -69,6 +69,7 @@ module.exports = function(app) {
 
   //Route to display selected recipes
   app.get("/api/recipes/saved", isAuthenticated, function(req, res) {
+    console.log(req);
     db.Recipes.findAll({
       where: {
         UserId: req.user.id
@@ -78,6 +79,7 @@ module.exports = function(app) {
     });
   });
 
+  //  Route to delete saved recipes
   app.post("/api/recipes/delete", isAuthenticated, function(req, res) {
     var deleteID = req.body.recipeId;
     console.log(req);
@@ -123,7 +125,6 @@ module.exports = function(app) {
     axios
       .get(queryUrl)
       .then(function(result) {
-        // res.json(result.data.hits);
         res.json(result.data.hits);
       })
       .catch(function(err) {
@@ -177,29 +178,18 @@ function RecipeSearchData(
  * @param {Object} searchData Object containing search parameters
  */
 function recipeSearchQuery(searchData) {
-  // const {
-  //   searchFood,
-  //   recipeURI,
-  //   healthSpec,
-  //   dietSpec,
-  //   cuisineType,
-  //   dishType,
-  //   mealType,
-  //   excludeFood,
-  //   inSpanish
-  // } = searchData;
+  const {
+    searchFood,
+    recipeURI,
+    healthSpec,
+    dietSpec,
+    cuisineType,
+    dishType,
+    mealType,
+    excludeFood,
+    inSpanish
+  } = searchData;
 
-  var searchFood = searchData.searchFood;
-  var recipeURI = searchData.recipeURI;
-  var healthSpec = searchData.healthSpec;
-  var dietSpec = searchData.dietSpec;
-  var cuisineType = searchData.cuisineType;
-  var dishType = searchData.dishType;
-  var mealType = searchData.mealType;
-  var excludeFood = searchData.excludeFood;
-  var inSpanish = searchData.inSpanish;
-
-  // var queryURL = "http://";
   var queryURL = "https://";
 
   //      Base API String

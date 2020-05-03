@@ -1,6 +1,8 @@
 var _ENTER_KEYCODE = 13;
 var _TAB_KEYCODE = 9;
 
+var _RECIPES_TOPOST = 6;
+
 //  Key-down event for Ingredient Input Box
 $("#ingredient-input").on("keydown", function(event) {
   if (event.keyCode === _ENTER_KEYCODE || event.keyCode === _TAB_KEYCODE) {
@@ -47,12 +49,20 @@ $(".getRecipes").on("click", function() {
     "/api/recipes/" +
     ingredientArray.join("%2C");
 
+  var dietSpec = $("#userDiet").val();
+  var userHealth = $("#userHealth").val();
+  var userMealType = $("#userMealType").val();
+  var userExclude = $("#userExclude").val();
+
   var queryData = {
-    dietSpec: "Low-Fat"
+    dietSpec: dietSpec,
+    userHealth: userHealth,
+    userMealType: userMealType,
+    userExclude: userExclude
   };
 
   $.get(queryString, queryData, function(data) {
-    var numberToPost = 6;
+    var numberToPost = _RECIPES_TOPOST;
     var divSuggested = $("#suggested-recipes");
 
     for (var i = 0; i < numberToPost; i++) {
@@ -118,7 +128,7 @@ function suggestedBlock(currentRecipe) {
   newLink.attr("style", "margin-top: 10px; font-size: 16px;");
   newLink.attr("target", "_blank");
 
-  newDiv.attr("style", "display: block; margin: 1px 0; clear: both;");
+  newDiv.attr("style", "display: block; margin: 1px 0;");
   newDiv.append(newImage);
   newDiv.append(newLink);
   newDiv.append(newBreak);
@@ -157,6 +167,14 @@ function IngredientBlock(ingredient) {
   return liTag;
 }
 
+/**
+ * Creates HTML element for Saved Recipe
+ *   Button tag has ID "del-<uniqueID>"
+ *   Div tag has ID "<uniqueID>"
+ * @param {Text} recipeLink Web URL to find recipe
+ * @param {Text} recipeTitle Text Title for Recipe
+ * @param {Text} recipeUri Edamam ID to locate recipe
+ */
 function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
   let blockID = returnDateTimeIdentifier("saved");
 
@@ -176,6 +194,7 @@ function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
   newLink.attr("target", "_blank");
 
   //    This is a terrible way to do this. We need to think of something better. -- Done. JA
+  // newDiv.attr("id", recipeUri)
   newDiv.attr("id", blockID);
 
   newDiv.append(newLink);
@@ -211,7 +230,6 @@ function renderSavedRecipes(recipes) {
     let newBlock = savedRecipeBlock(currentLink, currentTitle, currentUri);
     savedDiv.append(newBlock);
   }
-
   $(".saved-delete").on("click", function(event) {
     event.preventDefault();
     console.log(event.target);
