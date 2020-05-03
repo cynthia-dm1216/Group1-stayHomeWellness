@@ -177,6 +177,9 @@ function IngredientBlock(ingredient) {
  */
 function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
   let blockID = returnDateTimeIdentifier("saved");
+  while ($("#" + blockID).length > 0) {
+    blockID += Math.floor(Math.random() * 9);
+  }
 
   let newDiv = $("<div>");
   let newLink = $("<a>");
@@ -222,6 +225,8 @@ function getSavedRecipes() {
  */
 function renderSavedRecipes(recipes) {
   let savedDiv = $("#saved-recipes");
+  savedDiv.empty();
+
   for (var i = 0; i < recipes.length; i++) {
     let currentLink = recipes[i].link;
     let currentTitle = recipes[i].title;

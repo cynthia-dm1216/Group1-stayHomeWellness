@@ -78,13 +78,13 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button signup">
+                            <a class="button signup" style="display: none;">
                                 Sign up
                             </a>
-                            <a class="button is-light" id="login">
+                            <a class="button is-light" id="login" style="display: none;">
                                 Log in
                             </a>
-                            <a class="button logOut" id="logout" style="display: none;"> 
+                            <a class="button logOut" id="logout" style="display: block; margin-right: 10px;"> 
                                 Log Out
                             </a>
                         </div>
@@ -241,6 +241,10 @@
                 $(".navbar-menu").toggleClass("is-active");
 
             });
+
+            $("#logout").click(function() {
+                window.location = "/logout";
+            })
         });
 
     </script>
