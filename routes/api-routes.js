@@ -69,7 +69,7 @@ module.exports = function(app) {
 
   //Route to display selected recipes
   app.get("/api/recipes/saved", isAuthenticated, function(req, res) {
-    console.log(req);
+    // console.log(req);
     db.Recipes.findAll({
       where: {
         UserId: req.user.id
@@ -82,8 +82,8 @@ module.exports = function(app) {
   //  Route to delete saved recipes
   app.post("/api/recipes/delete", isAuthenticated, function(req, res) {
     var deleteID = req.body.recipeId;
-    console.log(req);
-    console.log(deleteID);
+    // console.log(req);
+    // console.log(deleteID);
     db.Recipes.destroy({
       where: {
         user: req.user.id,
@@ -120,7 +120,8 @@ module.exports = function(app) {
       excludeFood
     );
 
-    var queryUrl = recipeSearchQuery(ingredient);
+    var queryUrl = recipeSearchQuery(ingredient, req.protocol);
+    console.log(queryUrl);
 
     axios
       .get(queryUrl)
@@ -177,7 +178,7 @@ function RecipeSearchData(
  * Requires either the searchFood key or the recipeURI key.
  * @param {Object} searchData Object containing search parameters
  */
-function recipeSearchQuery(searchData) {
+function recipeSearchQuery(searchData, requestProtocol) {
   const {
     searchFood,
     recipeURI,
@@ -190,7 +191,7 @@ function recipeSearchQuery(searchData) {
     inSpanish
   } = searchData;
 
-  var queryURL = "https://";
+  var queryURL = requestProtocol + "://";
 
   //      Base API String
   if (!inSpanish) {

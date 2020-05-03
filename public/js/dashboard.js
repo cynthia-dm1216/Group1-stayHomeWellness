@@ -39,9 +39,7 @@ $(".getRecipes").on("click", function() {
   }
 
   var queryString = "";
-  if (window.document.domain !== "localhost") {
-    queryString = window.location.protocol + "//";
-  }
+  queryString = window.location.protocol + "//";
   queryString +=
     window.document.domain +
     ":" +
@@ -93,7 +91,7 @@ $(".getRecipes").on("click", function() {
 
 function submitRecipe(Recipe) {
   $.post("/api/recipes", Recipe, function(data) {
-    console.log(data);
+    return data !== null;
   });
 }
 
@@ -225,14 +223,12 @@ function renderSavedRecipes(recipes) {
     let currentLink = recipes[i].link;
     let currentTitle = recipes[i].title;
     let currentUri = recipes[i].uri;
-    console.log(currentLink, currentTitle);
 
     let newBlock = savedRecipeBlock(currentLink, currentTitle, currentUri);
     savedDiv.append(newBlock);
   }
   $(".saved-delete").on("click", function(event) {
     event.preventDefault();
-    console.log(event.target);
     let deleteId = $(event.target)
       .attr("id")
       .substr(4);
@@ -251,7 +247,6 @@ function renderSavedRecipes(recipes) {
       recipeId: deleteUri
     };
 
-    console.log(queryString);
     $.post(queryString, queryData, function(err) {
       if (err) {
         throw err;
