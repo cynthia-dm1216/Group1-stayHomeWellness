@@ -1,20 +1,20 @@
 module.exports = function (sequelize, DataTypes) {
   var workOuts = sequelize.define("workOuts", {
     category: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     duration: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     reps: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     sets: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     description: {
-      type: DataTypes.STRING
-    }
+      type: DataTypes.STRING,
+    },
   });
   return workOuts;
 };

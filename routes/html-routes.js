@@ -33,10 +33,7 @@ module.exports = function (app) {
     res.sendFile(path.join(__dirname, "../public/dashboard.html"));
   });
 
-<<<<<<< HEAD
-=======
   //TODO: add isAuthenticated back or else everyone will be able to look at workouts
->>>>>>> 3469ae43d07dd8267d0c6d5d4567377b2f6c3664
   app.get("/workout", isAuthenticated, function (req, res) {
     res.sendFile(path.join(__dirname, "../public/workout.html"));
   });
