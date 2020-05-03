@@ -78,8 +78,9 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/recipes/delete/:recipeId", isAuthenticated, function(req, res) {
-    var deleteID = req.params.recipeId;
+  app.post("/api/recipes/delete", isAuthenticated, function(req, res) {
+    var deleteID = req.body.recipeId;
+    console.log(req);
     console.log(deleteID);
     db.Recipes.destroy({
       where: {

@@ -227,11 +227,14 @@ function renderSavedRecipes(recipes) {
       window.document.domain +
       ":" +
       window.location.port +
-      "/api/recipes/delete/" +
-      deleteUri;
+      "/api/recipes/delete";
+
+    let queryData = {
+      recipeId: deleteUri
+    };
 
     console.log(queryString);
-    $.post(queryString, function(err) {
+    $.post(queryString, queryData, function(err) {
       if (err) {
         throw err;
       }
