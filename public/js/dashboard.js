@@ -4,7 +4,7 @@ var _TAB_KEYCODE = 9;
 var _RECIPES_TOPOST = 6;
 
 //  Key-down event for Ingredient Input Box
-$("#ingredient-input").on("keydown", function(event) {
+$("#ingredient-input").on("keydown", function (event) {
   if (event.keyCode === _ENTER_KEYCODE || event.keyCode === _TAB_KEYCODE) {
     event.preventDefault();
 
@@ -18,10 +18,8 @@ $("#ingredient-input").on("keydown", function(event) {
       ingredientInput.val("");
 
       //  On-Click event for Ingredient Delete Buttons
-      $(".ingredient-delete").on("click", function() {
-        var thisValue = $(this)
-          .attr("id")
-          .substr(4);
+      $(".ingredient-delete").on("click", function () {
+        var thisValue = $(this).attr("id").substr(4);
 
         $("#" + thisValue).remove();
       });
@@ -30,7 +28,7 @@ $("#ingredient-input").on("keydown", function(event) {
 });
 
 //  On-Click event for the Find Recipes button
-$(".getRecipes").on("click", function() {
+$(".getRecipes").on("click", function () {
   var ingredientArray = [];
   var ingredients = $("#ingredient-list").find("span");
   for (var i = 0; i < ingredients.length; i++) {
@@ -56,10 +54,10 @@ $(".getRecipes").on("click", function() {
     dietSpec: dietSpec,
     userHealth: userHealth,
     userMealType: userMealType,
-    userExclude: userExclude
+    userExclude: userExclude,
   };
 
-  $.get(queryString, queryData, function(data) {
+  $.get(queryString, queryData, function (data) {
     var numberToPost = _RECIPES_TOPOST;
     var divSuggested = $("#suggested-recipes");
 
@@ -74,14 +72,14 @@ $(".getRecipes").on("click", function() {
       divSuggested.append(newDiv);
     }
 
-    $(".recipe-btn").on("click", function(event) {
+    $(".recipe-btn").on("click", function (event) {
       event.preventDefault();
 
       // Make a newRecipe object
       var newRecipe = {
         link: event.target.getAttribute("value"),
         title: event.target.getAttribute("data-title"),
-        uri: event.target.getAttribute("data-uri")
+        uri: event.target.getAttribute("data-uri"),
       };
 
       submitRecipe(newRecipe);
@@ -90,7 +88,7 @@ $(".getRecipes").on("click", function() {
 });
 
 function submitRecipe(Recipe) {
-  $.post("/api/recipes", Recipe, function(data) {
+  $.post("/api/recipes", Recipe, function (data) {
     getSavedRecipes();
     return data !== null;
   });
@@ -211,7 +209,7 @@ function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
  * Fetches logged-in user's saved recipes
  */
 function getSavedRecipes() {
-  $.get("/api/recipes/saved", function(data) {
+  $.get("/api/recipes/saved", function (data) {
     if (!data) {
       return;
     }
@@ -237,11 +235,9 @@ function renderSavedRecipes(recipes) {
   }
 
   //  Add button-click handler for delete button
-  $(".saved-delete").on("click", function(event) {
+  $(".saved-delete").on("click", function (event) {
     event.preventDefault();
-    let deleteId = $(event.target)
-      .attr("id")
-      .substr(4);
+    let deleteId = $(event.target).attr("id").substr(4);
     let deleteUri = $(event.target).attr("data-uri");
 
     let queryString = "";
@@ -256,10 +252,10 @@ function renderSavedRecipes(recipes) {
     queryString += "/api/recipes/delete";
 
     let queryData = {
-      recipeId: deleteUri
+      recipeId: deleteUri,
     };
 
-    $.post(queryString, queryData, function(err) {
+    $.post(queryString, queryData, function (err) {
       if (err) {
         throw err;
       }
@@ -279,10 +275,7 @@ function renderSavedRecipes(recipes) {
 function returnDateTimeIdentifier(prefix = "", suffix = "", separator = "-") {
   let newDate = new Date();
   let identifier =
-    newDate
-      .getFullYear()
-      .toString()
-      .substr(2) +
+    newDate.getFullYear().toString().substr(2) +
     newDate.getMonth() +
     newDate.getDate() +
     newDate.getHours() +
@@ -301,6 +294,6 @@ function returnDateTimeIdentifier(prefix = "", suffix = "", separator = "-") {
 
 //  **  Logic
 
-$(document).ready(function() {
+$(document).ready(function () {
   getSavedRecipes();
 });
