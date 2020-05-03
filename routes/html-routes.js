@@ -10,7 +10,7 @@ module.exports = function (app) {
     if (req.user) {
       return res.redirect("/dashboard");
     }
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
+    res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
   app.get("/login", function (req, res) {
@@ -21,13 +21,24 @@ module.exports = function (app) {
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 
+  app.get("/signup", function (req, res) {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      return res.redirect("/members");
+    }
+    res.sendFile(path.join(__dirname, "../public/signup.html"));
+  });
+
   app.get("/dashboard", isAuthenticated, function (req, res) {
     res.sendFile(path.join(__dirname, "../public/dashboard.html"));
   });
 
+<<<<<<< HEAD
+=======
+  //TODO: add isAuthenticated back or else everyone will be able to look at workouts
+>>>>>>> 3469ae43d07dd8267d0c6d5d4567377b2f6c3664
   app.get("/workout", isAuthenticated, function (req, res) {
     res.sendFile(path.join(__dirname, "../public/workout.html"));
-
   });
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page

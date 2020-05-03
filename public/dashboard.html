@@ -52,7 +52,7 @@
                         Workout
                     </a>
 
-                    <div class="navbar-item has-dropdown is-hoverable">
+                    <!-- <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
                             More
                         </a>
@@ -61,30 +61,30 @@
                             <a class="navbar-item">
                                 Resources
                             </a>
-                            <a class="navbar-item">
+                            <a class="navbar-item" disabled>
                                 Recipes
                             </a>
+                            <hr class="navbar-divider">
                             <a class="navbar-item">
                                 About
                             </a>
-                            <hr class="navbar-divider">
                             <a class="navbar-item">
                                 Report an issue
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button signup">
+                            <a class="button signup" style="display: none;">
                                 Sign up
                             </a>
-                            <a class="button is-light" id="login">
+                            <a class="button is-light" id="login" style="display: none;">
                                 Log in
                             </a>
-                            <a class="button logOut" id="logout" style="display: none;"> 
+                            <a class="button logOut" id="logout" style="display: block; margin-right: 10px;"> 
                                 Log Out
                             </a>
                         </div>
@@ -98,10 +98,10 @@
             <div class="tile is-ancestor">
                 <div class="tile is-vertical is-8">
                     <!-- Whats Cooking Tile -->
-                    <div class="tile is-parent">
+                    <div class="tile is-parent tile0">
                         <article class="tile is-child notification tile1">
                             <p class="title">What's Cooking?</p>
-                            <div class="field">
+                            <div class="field ingred-field">
                                 <div class="tile is-vertical ingred-tile">
                                     <div class="control">
                                         <input class="input is-info" id="ingredient-input" type="text"
@@ -134,7 +134,7 @@
                                         placeholder="soon to come">
                                 </div>
         
-                                <div class="tile is-child">
+                                <div class="tile is-child article-btn">
                                     <div class="card">
                                         <div class="card-image">
                                             <figure class="image is-4by3">
@@ -241,6 +241,10 @@
                 $(".navbar-menu").toggleClass("is-active");
 
             });
+
+            $("#logout").click(function() {
+                window.location = "/logout";
+            })
         });
 
     </script>
