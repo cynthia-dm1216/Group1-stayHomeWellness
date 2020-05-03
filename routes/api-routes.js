@@ -8,7 +8,7 @@ var isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
-  // Otherwise the user will be sent an error
+  // Otherwise the user will be sent an error.
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
     res.json(req.user);
   });
@@ -50,15 +50,10 @@ module.exports = function (app) {
     }
   });
 
-  // app.get("/api/workout", function(req, res) {
-  //   console.log(req.body);
-  // });
   //Route for saving a selected recipe
   app.post("/api/recipes", isAuthenticated, function (req, res) {
-    // console.log(req);
-    // console.log(req.body);
     db.Recipes.create({
-      //spread keys/values from recipe object
+      //spread keys/vales from recipe object
       link: req.body.link,
       title: req.body.title,
       uri: req.body.uri,
@@ -74,7 +69,6 @@ module.exports = function (app) {
 
   //Route to display selected recipes
   app.get("/api/recipes/saved", isAuthenticated, function (req, res) {
-    console.log(req);
     db.Recipes.findAll({
       where: {
         UserId: req.user.id,
@@ -84,17 +78,22 @@ module.exports = function (app) {
     });
   });
 
+  //  Route to delete saved recipes
+  app.post("/api/recipes/delete", isAuthenticated, function (req, res) {
+    var deleteID = req.body.recipeId;
+    console.log(req.user.id, deleteID);
+    db.Recipes.destroy({
+      where: {
+        UserId: req.user.id,
+        uri: deleteID,
+      },
+    });
+    res.status(200).end();
+  });
+
   //Route to query API with user input ingredients
   app.get("/api/recipes/:ingredients", isAuthenticated, function (req, res) {
     var userEntry = req.params.ingredients;
-    // console.log(JSON.stringify(req.body, null, 2));
-
-    // let dietSpec = req.data.dietSpec;
-    // let mealType = req.data.mealType;
-    // let healthSpec = req.data.healthSpec;
-    // let cuisineType = req.data.cuisineType;
-    // let dishType = req.data.dishType;
-    // let excludeFood = req.data.excludeFood;
 
     const {
       dietSpec,
@@ -119,19 +118,12 @@ module.exports = function (app) {
       excludeFood
     );
 
-    // console.log(ingredient);
-
-    // var queryUrl = `https://api.edamam.com/search?q=beets&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`;
-    var queryUrl = recipeSearchQuery(ingredient);
-
-    // console.log(ingredient);
-    // console.log(queryUrl);
-    // res.send(ingredient + "<br>" + queryUrl);
+    var queryUrl = recipeSearchQuery(ingredient, req.protocol);
+    console.log(queryUrl);
 
     axios
       .get(queryUrl)
       .then(function (result) {
-        // res.json(result.data.hits);
         res.json(result.data.hits);
       })
       .catch(function (err) {
@@ -139,18 +131,6 @@ module.exports = function (app) {
         res.status(500).send("Something broke!");
       });
   });
-
-  //   //External API call
-  //   function apiQuery() {
-  //     axios
-  //       .get("https://api.edamam.com/search?q=beets&app_id=f876d2ab&app_key=f3704087ed21caa6260f24b22b7b655f")
-  //       .then(function (res) {
-  //         return res.data.hits;
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   }
 };
 
 /**
@@ -196,31 +176,20 @@ function RecipeSearchData(
  * Requires either the searchFood key or the recipeURI key.
  * @param {Object} searchData Object containing search parameters
  */
-function recipeSearchQuery(searchData) {
-  // const {
-  //   searchFood,
-  //   recipeURI,
-  //   healthSpec,
-  //   dietSpec,
-  //   cuisineType,
-  //   dishType,
-  //   mealType,
-  //   excludeFood,
-  //   inSpanish
-  // } = searchData;
+function recipeSearchQuery(searchData, requestProtocol) {
+  const {
+    searchFood,
+    recipeURI,
+    healthSpec,
+    dietSpec,
+    cuisineType,
+    dishType,
+    mealType,
+    excludeFood,
+    inSpanish,
+  } = searchData;
 
-  var searchFood = searchData.searchFood;
-  var recipeURI = searchData.recipeURI;
-  var healthSpec = searchData.healthSpec;
-  var dietSpec = searchData.dietSpec;
-  var cuisineType = searchData.cuisineType;
-  var dishType = searchData.dishType;
-  var mealType = searchData.mealType;
-  var excludeFood = searchData.excludeFood;
-  var inSpanish = searchData.inSpanish;
-
-  // var queryURL = "http://";
-  var queryURL = "https://";
+  var queryURL = requestProtocol + "://";
 
   //      Base API String
   if (!inSpanish) {

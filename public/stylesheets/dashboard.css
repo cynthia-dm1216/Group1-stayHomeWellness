@@ -29,6 +29,10 @@
     margin-right: 10px;
 }
 
+.tile0 {
+    max-height: 320px;
+}
+
 .tile1 {
     background-color: #43CAFE;
 }
@@ -78,4 +82,23 @@
 
 .getRecipes {
     align-items: flex-end;
+}
+
+@media (max-width: 400px) {
+    .tile0 {
+        max-height: 360px;
+    }
+
+    .ingred-field {
+        flex-wrap: wrap;
+    }
+
+    .card-image {
+        display: none;
+    }
+
+    .article-btn {
+        min-width: 100%;
+        padding-top: 10px;
+    }
 }
