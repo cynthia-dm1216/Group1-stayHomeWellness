@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Jquery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Bulma -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
   <!-- Bulma CSS-->
@@ -16,12 +18,16 @@
 <body>
   <section class="hero is-info">
     <div class="hero-body">
-      <div class="container">
+      <div class="container title mainHeader">
         <h1 class="title is-size-1">
           Workouts
         </h1>
+        <div class="buttons">
+          <a class="button back" id="back" style="display: block; margin-left: 1300px;">
+            Back
+          </a>
+        </div>
       </div>
-    </div>
   </section>
   <div class="tile is-parent">
     <article class="tile is-child notification tile4">
@@ -72,12 +78,20 @@
           <li>Tricep pushups || keep elbows closer to your body</li>
           <li>Shoulder Press with band || Backpack filled with books</li>
         </ol>
-
       </div>
+      <!-- back button on workout-->
+      <script>
+        $(document).ready(function () {
+       $('#back').click(function() {
+         window.location = '/dashboard';
+       })
+      });
+       </script>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script type="text/javascript" src="js/workout.js"></script>
-
+      <!-- Jquery -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
 </html>
