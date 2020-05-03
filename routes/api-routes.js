@@ -69,7 +69,6 @@ module.exports = function(app) {
 
   //Route to display selected recipes
   app.get("/api/recipes/saved", isAuthenticated, function(req, res) {
-    // console.log(req);
     db.Recipes.findAll({
       where: {
         UserId: req.user.id
@@ -82,11 +81,10 @@ module.exports = function(app) {
   //  Route to delete saved recipes
   app.post("/api/recipes/delete", isAuthenticated, function(req, res) {
     var deleteID = req.body.recipeId;
-    // console.log(req);
-    // console.log(deleteID);
+    console.log(req.user.id, deleteID);
     db.Recipes.destroy({
       where: {
-        user: req.user.id,
+        UserId: req.user.id,
         uri: deleteID
       }
     });

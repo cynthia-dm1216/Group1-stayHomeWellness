@@ -91,6 +91,7 @@ $(".getRecipes").on("click", function() {
 
 function submitRecipe(Recipe) {
   $.post("/api/recipes", Recipe, function(data) {
+    getSavedRecipes();
     return data !== null;
   });
 }
@@ -126,7 +127,7 @@ function suggestedBlock(currentRecipe) {
   newLink.attr("style", "margin-top: 10px; font-size: 16px;");
   newLink.attr("target", "_blank");
 
-  newDiv.attr("style", "display: block; margin: 1px 0;");
+  newDiv.attr("style", "overflow: auto;");
   newDiv.append(newImage);
   newDiv.append(newLink);
   newDiv.append(newBreak);
@@ -155,6 +156,7 @@ function IngredientBlock(ingredient) {
   buttonDelete.addClass("delete is-small ingredient-delete");
 
   liTag.attr("id", blockID);
+  liTag.attr("style", "overflow: auto;");
   spanTag.text(ingredient);
   buttonDelete.attr("id", "del-" + blockID);
 
@@ -194,6 +196,7 @@ function savedRecipeBlock(recipeLink, recipeTitle, recipeUri) {
   //    This is a terrible way to do this. We need to think of something better. -- Done. JA
   // newDiv.attr("id", recipeUri)
   newDiv.attr("id", blockID);
+  newDiv.attr("style", "overflow: auto;");
 
   newDiv.append(newLink);
   newDiv.append(newBtn);
@@ -227,21 +230,25 @@ function renderSavedRecipes(recipes) {
     let newBlock = savedRecipeBlock(currentLink, currentTitle, currentUri);
     savedDiv.append(newBlock);
   }
+
+  //  Add button-click handler for delete button
   $(".saved-delete").on("click", function(event) {
     event.preventDefault();
     let deleteId = $(event.target)
       .attr("id")
       .substr(4);
     let deleteUri = $(event.target).attr("data-uri");
+
     let queryString = "";
     if (window.document.domain !== "localhost") {
-      queryString = window.location.protocol + "//";
+      queryString =
+        window.location.protocol +
+        "//" +
+        window.document.domain +
+        ":" +
+        window.location.port;
     }
-    queryString +=
-      window.document.domain +
-      ":" +
-      window.location.port +
-      "/api/recipes/delete";
+    queryString += "/api/recipes/delete";
 
     let queryData = {
       recipeId: deleteUri
