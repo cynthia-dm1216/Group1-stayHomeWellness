@@ -26,9 +26,8 @@ module.exports = function (app) {
   });
 
   //TODO: add isAuthenticated back or else everyone will be able to look at workouts
-  app.get("/workout",isAuthenticated, function (req, res) {
+  app.get("/workout", isAuthenticated, function (req, res) {
     res.sendFile(path.join(__dirname, "../public/workout.html"));
-
   });
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
