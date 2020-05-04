@@ -12,6 +12,9 @@ module.exports = function (sequelize, DataTypes) {
     sets: {
       type: DataTypes.INTEGER,
     },
+    description: {
+      type: DataTypes.STRING,
+    },
   });
   return workOuts;
 };
