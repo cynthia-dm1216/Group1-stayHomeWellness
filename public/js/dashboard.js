@@ -57,6 +57,7 @@ $(".getRecipes").on("click", function () {
   $.get(queryString, queryData, function (data) {
     var numberToPost = _RECIPES_TOPOST;
     var divSuggested = $("#suggested-recipes");
+    divSuggested.empty();
 
     for (var i = 0; i < numberToPost; i++) {
       if (!data[i].recipe) {
