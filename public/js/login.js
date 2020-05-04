@@ -33,7 +33,13 @@ $(document).ready(function () {
         // If there's an error, log the error
       })
       .catch(function (err) {
+        handleLoginErr(err);
         console.log(err);
       });
+  }
+
+  function handleLoginErr(err) {
+    $("#alert .msg").text(err.statusText);
+    $("#alert").fadeIn(500);
   }
 });
