@@ -1,22 +1,32 @@
-# Project 2 Template
-## Group 1 
+# Project2- StayHomeWellness
+## User Story
 
-## Scripts
-### Install
-    npm install
-### Run (production)
-    npm start
-### Run (dev)
-    npm run watch
-### Tests (includes linting)
-    npm test
-### Linting by itself (only detects errors)
-    npm run lint
-### Autofix linting errors where pssible (Note: this will not necessarily fix all of them)
-    npm run fix
+```
+AS a person having to stay at home,
+I WANT to find healthy and fun activities to do, without leaving home
+SO THAT I can be both productive and safe.
 
-    
-### Associated Links (requires you to be logged into github):
-[Project Requirements](https://github.com/the-Coding-Boot-Camp-at-UT/UT-AUS-FSF-FT-03-2020-U-C/blob/master/01-Class-Content/15-Project-2/02-Homework/README.md)
+```
 
-[SQL Deployment](https://github.com/the-Coding-Boot-Camp-at-UT/UT-AUS-FSF-FT-03-2020-U-C/blob/master/01-Class-Content/14-Full-Stack/04-Supplemental/SequelizeHerokuDeploymentProcess.md)
+## Description
+
+During the COVID pandemic we are all stuck at home more than usual, so we decided to develop an application that could provide people with fun and healthy things to do from home that would also be useful during other situations like a  bad weather situation.
+
+## Completed/Technologies Used
+
+* HTML/CSS/JS, Bulma CSS framework
+* Node/Express
+* MongoDB and mongoose
+* REST
+* third part API
+* Heroku deployment
+
+## Application URLs - 
+
+Deployed: https://team1-project2.herokuapp.com/dashboard
+
+GitHub: https://github.com/cynthia-dm1216/Group1-stayHomeWellness 
+
+## Application Screenshots
+
+![HomePage screenshot](Screenshot.PNG)
